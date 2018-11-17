@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+{% block Title %}
+{{ DetailPost.name }}
+{% endblock Title %}
+
+{% block MainContent %}
+<link rel="stylesheet" href="{% static 'css/custom_css/detailpost.css' %}">
+<style>
+    .banner-area {
+        background: url({{ DetailSubCategory.image.url }}) center;
+        background-size: cover;
+    }
+</style>
+<!-- start banner Area -->
+<section class="banner-area relative" id="home">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="about-content col-lg-12">
+                <h1 class="text-white">
+                    {{ DetailSubCategory.name }}
+                </h1>
+                <p class="text-white link-nav"><a href="index.html">Trang chủ </a>  <span class="lnr lnr-arrow-right"></span>  <a href="projects.html"> {{ SubCategory.name }}</a><span class="lnr lnr-arrow-right"></span>  <a href="projects.html"> {{ DetailSubCategory.name }}</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End banner Area -->
+
+<!-- Start project-details Area -->
+<section class="project-details-area section-gap">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 project-details-left">
+                <img class="img-fluid" src="{{ DetailPost.avatar.url }}" alt="">
+            </div>
+            <div class="col-lg-6 project-details-right">
+                <h3 class="pb-20">{{ DetailPost.name }}</h3>
+                <p>{{ DetailPost.description }}</p>
+                <div class="details-info d-flex flex-row">
+                    <ul class="names">
+                        <li>Tên khách hàng</li>
+                        <li>Địa chỉ</li>
+                        <li>Ngày thiết kế</li>
+                    </ul>
+                    <ul class="desc">
+                        <li>: {{ DetailPost.customer }}</li>
+                        <li>: {{ DetailPost.address }}</li>
+                        <li>: {{ DetailPost.start_date }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-12 project-desc mt-60">
+                <p>{{ DetailPost.main_content }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End project-details Area -->
+
+<!-- Photo Grid -->
+<div class="row-grid container">
+    <div class="column-grid">
+        {% for postimage in DetailPost.detailpostimages_set.all %}
+            <img src="{{ postimage.image.url }}" style="width:100%">
+            {% if forloop.counter0 == GridImageColumnCount %}
+                </div>
+			    <div class="column-grid">
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+<!-- End Photo Grid -->
+
+{% endblock MainContent %}
+
+{% block CustomJs %}
+<script>
+</script>
+{% endblock CustomJs %}

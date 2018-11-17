@@ -1,0 +1,11 @@
+.content-details p{
+	max-width:80% !important;
+	margin:auto;
+}
+.desc{
+	max-width:80%;
+	margin:auto;
+}
+.top-category-widget-area .single-cat-widget .overlay-bg{
+	background: rgba(0,0,0,0.60);
+}

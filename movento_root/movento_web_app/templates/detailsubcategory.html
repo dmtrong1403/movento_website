@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load static %}
+{% block Title %}
+{{ DetailSubCategory.name }}
+{% endblock Title %}
+
+{% block MainContent %}
+<div class="blog-page">
+    <link rel="stylesheet" href="{% static 'css/custom_css/detailsubcategory.css' %}">
+    <style>
+        .banner-area {
+            background: url({{ DetailSubCategory.image.url }}) center;
+            background-size: cover;
+        }
+    </style>
+
+    <!-- start banner Area -->
+    <section class="banner-area relative" id="home">
+        <div class="overlay overlay-bg"></div>
+        <div class="container">
+            <div class="row d-flex align-items-center justify-content-center">
+                <div class="about-content col-lg-12">
+                    <h1 class="text-white">
+                        {{ DetailSubCategory.name }}
+                    </h1>
+                    <p class="text-white link-nav"><a href="index.html">Trang chủ </a>  <span class="lnr lnr-arrow-right"></span>  <a href="projects.html"> {{ SubCategory.name }}</a><span class="lnr lnr-arrow-right"></span>  <a href="projects.html"> {{ DetailSubCategory.name }}</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End banner Area -->
+
+    <!-- Start post-content Area -->
+    <section class="pt-90 post-content-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 posts-list">
+                    {% for post in DetailPosts %}
+                        <div class="single-post row">
+                            <div class="col-lg-3  col-md-3 meta-details">
+                                <ul class="tags">
+                                    {% for tag in post.tag.all %}
+                                        <li><a href="{{ tag.path }}">{{ tag.name }},</a></li>
+                                    {% endfor %}
+                                </ul>
+                                <div class="user-details row">
+                                    <p class="user-name col-lg-12 col-md-12 col-6"><a>{{ post.customer }}</a> <span class="lnr lnr-user"></span></p>
+                                    <p class="date col-lg-12 col-md-12 col-6"><a>{{ post.start_date }}</a> <span class="lnr lnr-calendar-full"></span></p>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-md-9 ">
+                                <div class="feature-img">
+                                    <img class="img-fluid" src="{{ post.avatar.url }}" alt="">
+                                </div>
+                                <a class="posts-title" href="blog-single.html"><h3>{{ post.name }}</h3></a>
+                                <p class="excert">
+                                    {{ post.description }}
+                                </p>
+                                <a href="#" class="primary-btn">Xem thêm</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    <nav class="blog-pagination justify-content-center d-flex">
+                        <ul class="pagination">
+                            {% if DetailPosts.has_previous %}
+                                <li class="page-item">
+                                    <a href="#" class="page-link" aria-label="Previous">
+                                        <span aria-hidden="true">
+                                            <span class="lnr lnr-chevron-left"></span>
+                                        </span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% for i in DetailPosts.paginator.page_range %}
+                                {% if DetailPosts.number == i %}
+                                    <li class="page-item active"><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
+                                {% else %}
+                                    <li class="page-item"><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if DetailPosts.has_previous %}
+                            <li class="page-item">
+                                <a href="#" class="page-link" aria-label="Next">
+                                    <span aria-hidden="true">
+                                        <span class="lnr lnr-chevron-right"></span>
+                                    </span>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-4 sidebar-widgets">
+                    <div class="widget-wrap">
+                        <div class="single-sidebar-widget popular-post-widget">
+                            <h4 class="popular-title">Công trình nổi bật</h4>
+                            {% for post in OutStandingPosts %}
+                                <div class="popular-post-list">
+                                    <div class="single-post-list d-flex flex-row align-items-center thumb">
+                                        <img class="img-fluid" src="{{ post.avatar.url }}" alt="">
+                                    </div>
+                                    <div class="single-post-list d-flex flex-row align-items-center details">
+                                        <a href="#"><h6>{{ post.name }}</h6></a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="single-sidebar-widget ads-widget">
+                            <a><img class="img-fluid" src="{{ Advertising.contentimages_set.first.image.url }}" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End post-content Area -->
+</div>
+{% endblock MainContent %}
+
+{% block CustomJs %}
+<script>
+</script>
+{% endblock CustomJs %}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+{% block Title %}
+{{ SubCategory.name }}
+{% endblock Title %}
+
+{% block MainContent %}
+<link rel="stylesheet" href="{% static 'css/custom_css/subcategory.css' %}">
+<style>
+    .banner-area {
+        background: url({{ SubCategory.image.url }}) center;
+        background-size: cover;
+    }
+</style>
+
+<!-- start banner Area -->
+<section class="banner-area relative" id="home">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="about-content col-lg-12">
+                <h1 class="text-white">
+                    {{ SubCategory.name }}
+                </h1>
+                <p class="text-white link-nav"><a href="index.html">Trang chủ </a>  <span class="lnr lnr-arrow-right"></span>  <a href="projects.html"> {{ SubCategory.name }}</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Start top-category-widget Area -->
+<section class="top-category-widget-area pt-70 pb-10 ">
+    {% for category in SubCategory.detailsubcategory_set.all %}
+        {% if forloop.counter0 in evenlist %}
+            <div class="container pb-40">
+                <div class="row">
+        {% endif %}
+                    <div class="col-lg-6">
+                        <div class="single-cat-widget">
+                            <div class="content relative">
+                                <div class="overlay overlay-bg"></div>
+                                <a href="{% if SubCategory.cate_type == '1' %}/san-pham/{{ SubCategory.code }}/{{ category.code }}{% else %}/thiet-ke-thi-cong/{{ SubCategory.code }}/{{ category.code }}{% endif %}" target="_blank">
+                                  <div class="thumb">
+                                     <img class="content-image img-fluid d-block mx-auto" src="{{ category.image.url }}" alt="">
+                                  </div>
+                                  <div class="content-details">
+                                    <h4 class="content-title mx-auto text-uppercase">{{ category.name }}</h4>
+                                    <span></span>
+                                    <p>{{ category.description }}</p>
+                                  </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+        {% if forloop.counter0 not in evenlist %}
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+</section>
+<!-- End top-category-widget Area -->
+{% endblock MainContent %}
+
+{% block CustomJs %}
+<script>
+</script>
+{% endblock CustomJs %}

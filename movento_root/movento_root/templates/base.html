@@ -1,0 +1,261 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+<head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/fav.png">
+    <!-- Meta Description -->
+    <meta name="description" content="">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <!-- Site Title -->
+    <title>
+        {% block Title %}
+        {% endblock Title %}
+    </title>
+
+    <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/linearicons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom_css/main.css' %}">
+    <style>
+    {% with CTAContent.contentimages_set.all|first as firstItem %}
+      .callto-action-wrap{
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7))
+            ,url({{ firstItem.image.url }}) center;
+        }
+    {% endwith %}
+</style>
+</head>
+<body>
+<header id="header" id="home">
+    <div class="header-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-sm-6 col-4 header-top-left no-padding">
+                    <a href="tel:+953 012 3654 896">{{ Contact.mobile }}</a>
+                    <a href="mailto:movento.vn@gmail.com">{{ Contact.email }}</a>
+                </div>
+                <div class="col-lg-6 col-sm-6 col-8 header-top-right no-padding">
+                    <ul>
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                        <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container main-menu">
+        <div class="row align-items-center justify-content-between d-flex">
+            <div id="logo">
+                <a href="index.html"><img src="/uploads/logo.svg" alt="" title=""/></a>
+            </div>
+            <nav id="nav-menu-container">
+                <ul class="nav-menu">
+                    <li class="menu-active"><a href="/">Trang chủ</a></li>
+                    <li><a href="about.html">Giới thiệu</a></li>
+                    <!--Services-->
+                    <li class="menu-has-children"><a href="">Thiết kế Thi công</a>
+                        <ul>
+                            {% for menu in ServiceMenu %}
+                                {% if menu.detailsubcategory_set.count > 1 %}
+                                    <li class="menu-has-children">
+                                        <a href="/thiet-ke-thi-cong/{{ menu.code }}">{{ menu.name }}</a>
+                                        <ul>
+                                            {% for submenu in menu.detailsubcategory_set.all %}
+                                                <li><a href="/thiet-ke-thi-cong/{{ menu.code }}/{{ submenu.code }}">{{ submenu.name }}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                {% else %}
+                                    <li><a href="#">{{ menu.name }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <!--Product-->
+                    <li class="menu-has-children"><a href="">Sản phẩm</a>
+                        <ul>
+                            {% for menu in ProductMenu %}
+                                {% if menu.detailsubcategory_set.count > 1 %}
+                                    <li class="menu-has-children">
+                                        <a href="/san-pham/{{ menu.code }}">{{ menu.name }}</a>
+                                        <ul>
+                                            {% for submenu in menu.detailsubcategory_set.all %}
+                                                <li><a href="/san-pham/{{ menu.code }}/{{ submenu.code }}">{{ submenu.name }}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                {% else %}
+                                    <li><a href="#">{{ menu.name }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li><a href="contact.html">Liên hệ</a></li>
+                </ul>
+            </nav><!-- #nav-menu-container -->
+        </div>
+    </div>
+</header><!-- #header -->
+
+{% block MainContent %}
+{% endblock MainContent %}
+
+<!-- Start callto-action Area -->
+<section class="callto-action-area pt-120">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="callto-action-wrap col-lg-12 relative section-gap">
+                <div class="content">
+                    <h1 style="padding: 0 7rem 0 7rem;">
+                        {{ CTAContent.title }}
+                    </h1>
+                    <p class="mx-auto">
+                        {{ CTAContent.description }}
+                    </p>
+                    <a href="#" class="primary-btn text-uppercase">Yêu cầu tư vấn</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End callto-action Area -->
+
+<!-- Start brands Area -->
+<section class="brands-area pb-60 pt-60">
+    <div class="container no-padding">
+        <div class="brand-wrap">
+            <div class="row align-items-center active-brand-carusel justify-content-start no-gutters">
+                <div class="col single-brand">
+                    <a href="#"><img class="mx-auto" src="img/l1.png" alt=""></a>
+                </div>
+                <div class="col single-brand">
+                    <a href="#"><img class="mx-auto" src="img/l2.png" alt=""></a>
+                </div>
+                <div class="col single-brand">
+                    <a href="#"><img class="mx-auto" src="img/l3.png" alt=""></a>
+                </div>
+                <div class="col single-brand">
+                    <a href="#"><img class="mx-auto" src="img/l4.png" alt=""></a>
+                </div>
+                <div class="col single-brand">
+                    <a href="#"><img class="mx-auto" src="img/l5.png" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End brands Area -->
+
+<!-- start footer Area -->
+<footer class="footer-area section-gap">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-4 d-flex flex-column address-wrap">
+                <div class="single-contact-address d-flex flex-row">
+                    <div class="contact-details">
+                        <h5>Trụ sở chính & showroom</h5>
+                        <p>
+                            {{ Contact.showroom }}
+                        </p>
+                    </div>
+                </div>
+                <div class="single-contact-address d-flex flex-row">
+                    <div class="contact-details">
+                        <h5>Xưởng sản xuất</h5>
+                        <p>
+                            {{ Contact.factory }}
+                        </p>
+                    </div>
+                </div>
+                <div class="single-contact-address d-flex flex-row">
+                    <div class="contact-details">
+                        <h5>Hotline</h5>
+                        <p>
+                            Tel: {{ Contact.tel }}<br/>
+                            Mobile: {{ Contact.mobile }}
+                        </p>
+                    </div>
+                </div>
+                <div class="single-contact-address d-flex flex-row">
+                    <div class="contact-details">
+                        <h5>Hòm thư</h5>
+                        <p>{{ Contact.email }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <form class="form-area " id="myForm" action="mail.php" method="post" class="contact-form text-right">
+                    <div class="row">
+                        <div class="col-lg-6 form-group">
+                            <input name="name" placeholder="Họ tên" onfocus="this.placeholder = ''"
+                                   onblur="this.placeholder = 'Họ tên'" class="common-input mb-20 form-control"
+                                   required="" type="text">
+
+                            <input name="email" placeholder="Email"
+                                   pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
+                                   onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'"
+                                   class="common-input mb-20 form-control" required="" type="email">
+
+                            <input name="subject" placeholder="Số điện thoại" onfocus="this.placeholder = ''"
+                                   onblur="this.placeholder = 'Số điện thoại'" class="common-input mb-20 form-control"
+                                   required="" type="text">
+                        </div>
+                        <div class="col-lg-6 form-group">
+                            <textarea class="common-textarea form-control" name="message" placeholder="Mô tả yêu cầu"
+                                      onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mô tả yêu cầu'"
+                                      required=""></textarea>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="alert-msg" style="text-align: left;"></div>
+                            <button class="genric-btn primary circle" style="float: right;">Gửi yêu cầu</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</footer>
+<!-- End footer Area -->
+
+<!--Java Script embbed-->
+<script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+<script src="{% static 'js/easing.min.js' %}"></script>
+<script src="{% static 'js/hoverIntent.js' %}"></script>
+<script src="{% static 'js/superfish.min.js' %}"></script>
+<script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'js/mail-script.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+{% block CustomJs %}
+{% endblock CustomJs %}
+</body>
+</html>

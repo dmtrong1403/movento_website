@@ -1,0 +1,73 @@
+/* Cover image & top bar */
+#logo img{
+	display:none;
+}
+#header.header-scrolled #logo img{
+	display:block;
+}
+
+/* Image slider */
+.image-slider{
+	margin-top:3rem;
+}
+.carousel-control-prev:hover, .carousel-control-next:hover{
+	background: rgba(4,9,30,0.7);
+}
+
+/* Services */
+.single-service.justify-content-center>a:hover{
+	background-color:none !important;
+}
+.single-service{
+	border:none !important;
+}
+
+/* Outstanding features */
+.service-area.section-gap{
+	padding-top:3rem;
+	padding-bottom:3rem;
+}
+
+.gallery-area.pb-120{
+	padding-bottom:0px !important;
+}
+
+.feature-button{
+	margin:auto;
+	padding: 1.2rem;
+}
+
+.feature-button h4{
+	margin:0;
+}
+
+/* Gallery area */
+.gallery-btn{
+	border-radius:0;
+	margin-bottom:1.5rem;
+	font-weight: 600;
+	border-bottom: #c6b069 solid;
+	border-top: #c6b069 solid;
+	color: black;
+	background: none;
+}
+.gallery-btn:hover{
+	color:black;
+}
+.wrapper-center{
+	width:100%;
+	text-align:center;
+}
+.wrapper-right{
+	width:100%;
+	text-align:right;
+}
+.more-detail:hover{
+	color:black;
+}
+
+/* Customer feedback */
+
+.testimonial-area.pt-120{
+	padding-top: 70px !important;
+}

@@ -1,0 +1,56 @@
+/* General */
+
+textarea{
+	height:89%;
+}
+
+h1, h2, h3, h4, h5{
+	line-height:1.3rem;
+}
+
+/* Logo & nav */
+#logo img{
+	width:60px;
+}
+
+#header{
+	padding:10px !important;
+}
+
+.header-top{
+	padding:2px !important;
+}
+
+.container.main-menu{
+	padding: 5px;
+	border-top:none !important;
+}
+
+.banner-content h1{
+	font-size:37px !important;
+}
+
+.banner-content.col-lg-9.col-md-12.justify-content-center h1{
+	font-family: 'Playfair Display', serif;
+	font-weight:100 !important;
+}	
+
+.logo2{
+	margin-top:3rem;
+	margin:auto;
+	width:162px;
+}
+
+/* Footer */
+.footer-area.section-gap h5{
+	color: #c6b069;
+}
+
+.footer-area.section-gap{
+	padding: 20px 0;
+}
+
+.footer-area.section-gap h5, .footer-area.section-gap p{
+	font-family: "Poppins",sans-serif !important;
+}
+
