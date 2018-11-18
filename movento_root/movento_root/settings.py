@@ -126,12 +126,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-MEDIA_ROOT = '/home/movento/movento_website/movento_root/uploads'
+MEDIA_ROOT = 'uploads'
 MEDIA_URL = '/uploads/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'movento_root/static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    '/home/movento/movento_website/movento_root/movento_root/static',
+    os.path.join(BASE_DIR, 'movento_root/static'),
 ]
-
-
