@@ -17,8 +17,8 @@ class DetailPostAdmin(admin.ModelAdmin):
     list_display = ('name', 'category')
 
 
-class DetailPostInline(admin.TabularInline):
-    model = DetailPost
+# class DetailPostInline(admin.TabularInline):
+#     model = DetailPost
 
 
 admin.site.register(DetailPost, DetailPostAdmin)
@@ -29,16 +29,16 @@ admin.site.register(DetailPost, DetailPostAdmin)
 #
 
 class DetailSubCategoryAdmin(admin.ModelAdmin):
-    inlines = [DetailPostInline, ]
+    # inlines = [DetailPostInline, ]
     list_display = ('name', 'description')
 
 
-class DetailSubCategoryInline(admin.TabularInline):
-    model = DetailSubCategory
+# class DetailSubCategoryInline(admin.TabularInline):
+#     model = DetailSubCategory
 
 
 class SubCategoryAdmin(admin.ModelAdmin):
-    inlines = [DetailSubCategoryInline, ]
+    # inlines = [DetailSubCategoryInline, ]
     list_display = ('name', 'description')
 
 
