@@ -25,11 +25,7 @@ SECRET_KEY = 'yk&+c0dt$xuml4)t6d+!t_1pxpe!9*^m5hz4is8akcw2+l)we!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [
-    '103.104.117.174',
-    '127.0.0.1',
-    'movento.com.vn',
-]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -126,10 +122,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-MEDIA_ROOT = 'uploads'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 MEDIA_URL = '/uploads/'
 
-STATIC_ROOT = 'product_static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'movento_root/static'),

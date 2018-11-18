@@ -12,6 +12,3 @@ urlpatterns = [
     path("san-pham/<str:subcatename>/<str:detailsubcatename>", views.detailsubcategory, name="product_detailsubcategory"),
     path("san-pham/<str:subcatename>/<str:detailsubcatename>/<str:detailpostname>", views.detailpost, name="product_detailpost"),
 ]
-
-if settings.DEBUG is True:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
