@@ -129,8 +129,8 @@ USE_TZ = True
 MEDIA_ROOT = 'uploads'
 MEDIA_URL = '/uploads/'
 
-STATIC_ROOT = '/home/movento/movento_website/movento_root/movento_root/static'
+STATIC_ROOT = 'product_static'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    # os.path.join(BASE_DIR, 'movento_root/static'),
+    os.path.join(BASE_DIR, 'movento_root/static'),
 ]
