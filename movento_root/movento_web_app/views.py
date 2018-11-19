@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
 
-from .models import SubCategory, DetailSubCategory, Content, CustomerComment, Contact, DetailPost
+from .models import SubCategory, DetailSubCategory, Content, CustomerComment, Contact, DetailPost, Partner
 
 
 def base_context():
@@ -10,6 +10,7 @@ def base_context():
         "ProductMenu": SubCategory.objects.filter(cate_type="1"),
         "CTAContent": Content.objects.filter(page="0", component_type="5").first(),
         "Contact": Contact.objects.all().first(),
+        "Partners": Partner.objects.all(),
     }
 
 

@@ -119,7 +119,7 @@
 {% endblock MainContent %}
 
 <!-- Start callto-action Area -->
-<section class="callto-action-area pt-120">
+<section class="callto-action-area pt-60">
     <div class="container">
         <div class="row justify-content-center">
             <div class="callto-action-wrap col-lg-12 relative section-gap">
@@ -139,25 +139,15 @@
 <!-- End callto-action Area -->
 
 <!-- Start brands Area -->
-<section class="brands-area pb-60 pt-60">
+<section class="brands-area pt-20 pb-20">
     <div class="container no-padding">
         <div class="brand-wrap">
             <div class="row align-items-center active-brand-carusel justify-content-start no-gutters">
-                <div class="col single-brand">
-                    <a href="#"><img class="mx-auto" src="img/l1.png" alt=""></a>
-                </div>
-                <div class="col single-brand">
-                    <a href="#"><img class="mx-auto" src="img/l2.png" alt=""></a>
-                </div>
-                <div class="col single-brand">
-                    <a href="#"><img class="mx-auto" src="img/l3.png" alt=""></a>
-                </div>
-                <div class="col single-brand">
-                    <a href="#"><img class="mx-auto" src="img/l4.png" alt=""></a>
-                </div>
-                <div class="col single-brand">
-                    <a href="#"><img class="mx-auto" src="img/l5.png" alt=""></a>
-                </div>
+                {% for partner in Partners %}
+                    <div class="col single-brand">
+                        <a href="{{ partner.web }}"><img class="mx-auto" src="{{ partner.image.url }}" alt=""></a>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>

@@ -41,6 +41,11 @@ h1, h2, h3, h4, h5{
 	width:162px;
 }
 
+/* Partners */
+.brands-area .brand-wrap .owl-carousel .owl-item img{
+    max-width:150px;
+}
+
 /* Footer */
 .footer-area.section-gap h5{
 	color: #c6b069;
