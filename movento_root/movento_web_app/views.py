@@ -59,6 +59,6 @@ def detailpost(request, subcatename, detailsubcatename, detailpostname):
         "SubCategory": SubCategory.objects.filter(code=subcatename).first(),
         "DetailSubCategory": DetailSubCategory.objects.filter(code=detailsubcatename).first(),
         "DetailPost": post,
-        "GridImageColumnCount": int(post.detailpostimages_set.all().count()) / 2,
+        "GridImageColumnCount": int(post.detailpostimages_set.all().count() / 2),
     }
     return render(request, 'detailpost.html', {**context, **base_context()})
