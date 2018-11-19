@@ -47,8 +47,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-sm-6 col-4 header-top-left no-padding">
-                    <a href="tel:+953 012 3654 896">{{ Contact.mobile }}</a>
-                    <a href="mailto:movento.vn@gmail.com">{{ Contact.email }}</a>
+                    <a href="tel:{{ Contact.mobile }}">{{ Contact.mobile }}</a>
+                    <a href="mailto:{{ Contact.email }}">{{ Contact.email }}</a>
                 </div>
                 <div class="col-lg-6 col-sm-6 col-8 header-top-right no-padding">
                     <ul>
@@ -69,7 +69,7 @@
             <nav id="nav-menu-container">
                 <ul class="nav-menu">
                     <li class="menu-active"><a href="/">Trang chủ</a></li>
-                    <li><a href="about.html">Giới thiệu</a></li>
+                    <!--<li><a href="about.html">Giới thiệu</a></li>-->
                     <!--Services-->
                     <li class="menu-has-children"><a href="">Thiết kế Thi công</a>
                         <ul>
@@ -108,7 +108,7 @@
                             {% endfor %}
                         </ul>
                     </li>
-                    <li><a href="contact.html">Liên hệ</a></li>
+                    <li><a href="#lien-he">Liên hệ</a></li>
                 </ul>
             </nav><!-- #nav-menu-container -->
         </div>
@@ -165,7 +165,7 @@
 <!-- End brands Area -->
 
 <!-- start footer Area -->
-<footer class="footer-area section-gap">
+<footer id="lien-he" class="footer-area section-gap">
     <div class="container">
         <div class="row">
 

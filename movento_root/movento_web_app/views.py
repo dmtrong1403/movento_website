@@ -3,12 +3,14 @@ from django.shortcuts import render
 
 from .models import SubCategory, DetailSubCategory, Content, CustomerComment, Contact, DetailPost
 
-BASE_CONTEXT = {
-    "ServiceMenu": SubCategory.objects.filter(cate_type="0"),
-    "ProductMenu": SubCategory.objects.filter(cate_type="1"),
-    "CTAContent": Content.objects.filter(page="0", component_type="5").first(),
-    "Contact": Contact.objects.all().first(),
-}
+
+def base_context():
+    return {
+        "ServiceMenu": SubCategory.objects.filter(cate_type="0"),
+        "ProductMenu": SubCategory.objects.filter(cate_type="1"),
+        "CTAContent": Content.objects.filter(page="0", component_type="5").first(),
+        "Contact": Contact.objects.all().first(),
+    }
 
 
 def index(request):
@@ -24,7 +26,7 @@ def index(request):
         "DisplayServiceCategory": SubCategory.objects.filter(cate_type="0", is_homepage_content=True),
     }
     # assert False
-    return render(request, 'homepage.html', {**context, **BASE_CONTEXT})
+    return render(request, 'homepage.html', {**context, **base_context()})
 
 
 def subcategory(request, subcatename):
@@ -33,11 +35,11 @@ def subcategory(request, subcatename):
         "SubCategory": subcategory_obj,
         "evenlist": [i for i in range(subcategory_obj.detailsubcategory_set.all().count() + 1) if i % 2 == 0]
     }
-    return render(request, 'subcategory.html', {**context, **BASE_CONTEXT})
+    return render(request, 'subcategory.html', {**context, **base_context()})
 
 
 def detailsubcategory(request, subcatename, detailsubcatename):
-    detailsubcategory = DetailSubCategory.objects.filter(code=detailsubcatename).first()
+    detailsubcategory = DetailSubCategory.objects.filter(code='noi-that-chung-cu').first()
     detailpost_list = detailsubcategory.detailpost_set.all()
     paginator = Paginator(detailpost_list, 10)  # Show 10 contacts per page
     page = request.GET.get('page')
@@ -48,14 +50,15 @@ def detailsubcategory(request, subcatename, detailsubcatename):
         "OutStandingPosts": detailpost_list.filter(is_outstanding=True),
         "Advertising": Content.objects.filter(page='2', component_type='6').first(),
     }
-    return render(request, 'detailsubcategory.html', {**context, **BASE_CONTEXT})
+    return render(request, 'detailsubcategory.html', {**context, **base_context()})
 
 
 def detailpost(request, subcatename, detailsubcatename, detailpostname):
+    post = DetailPost.objects.filter(code=detailpostname).first()
     context = {
         "SubCategory": SubCategory.objects.filter(code=subcatename).first(),
         "DetailSubCategory": DetailSubCategory.objects.filter(code=detailsubcatename).first(),
-        "DetailPost": DetailPost.objects.filter(code=detailpostname).first(),
-        "GridImageColumnCount": int(DetailPost.detailpostimages_set.all().count()) / 2,
+        "DetailPost": post,
+        "GridImageColumnCount": int(post.detailpostimages_set.all().count()) / 2,
     }
-    return render(request, 'detailpost.html', {**context, **BASE_CONTEXT})
+    return render(request, 'detailpost.html', {**context, **base_context()})
