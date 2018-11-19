@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from .models import SubCategory, DetailSubCategory, DetailPost, DetailPostImages, Content, ContentImages, \
-    CustomerComment, Contact, Tag, Partner
+from .models import *
 
 
 #

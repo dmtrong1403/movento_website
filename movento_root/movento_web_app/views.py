@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
 
-from .models import SubCategory, DetailSubCategory, Content, CustomerComment, Contact, DetailPost, Partner
+from .models import *
 
 
 def base_context():
@@ -40,7 +40,7 @@ def subcategory(request, subcatename):
 
 
 def detailsubcategory(request, subcatename, detailsubcatename):
-    detailsubcategory = DetailSubCategory.objects.filter(code='noi-that-chung-cu').first()
+    detailsubcategory = DetailSubCategory.objects.filter(code=detailsubcatename).first()
     detailpost_list = detailsubcategory.detailpost_set.all()
     paginator = Paginator(detailpost_list, 10)  # Show 10 contacts per page
     page = request.GET.get('page')
