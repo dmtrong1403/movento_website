@@ -133,7 +133,11 @@ Movento
                         {% endif %}
                                 <div class="single-gallery">
                                     <div class="content">
-                                        <a href="#" target="_blank">
+                                        {% if sub_category in ServiceMenu %}
+                                        <a href="/thiet-ke-thi-cong/{{ sub_category.code }}/{{ detail_category.code }}/{{ post.code }}" target="_blank">
+                                        {% else %}
+                                        <a href="/san-pham/{{ sub_category.code }}/{{ detail_category.code }}/{{ post.code }}" target="_blank">
+                                        {% endif %}
                                             <div class="content-overlay"></div>
                                             <img class="content-image img-fluid d-block mx-auto"
                                                  src="{{ post.avatar.url }}"
