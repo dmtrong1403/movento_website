@@ -5,7 +5,7 @@
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="img/fav.png">
+    <link rel="shortcut icon" href="">
     <!-- Meta Description -->
     <meta name="description" content="">
     <!-- Meta Keyword -->
@@ -64,46 +64,46 @@
     <div class="container main-menu">
         <div class="row align-items-center justify-content-between d-flex">
             <div id="logo">
-                <a href="index.html"><img src="{% static 'img/logo.svg' %}" alt="" title=""/></a>
+                <a href="{% url 'home' %}"><img src="{% static 'img/logo.svg' %}" alt="" title=""/></a>
             </div>
             <nav id="nav-menu-container">
                 <ul class="nav-menu">
-                    <li class="menu-active"><a href="/">Trang chủ</a></li>
+                    <li class="menu-active"><a href="{% url 'home' %}">Trang chủ</a></li>
                     <!--<li><a href="about.html">Giới thiệu</a></li>-->
                     <!--Services-->
-                    <li class="menu-has-children"><a href="/">Thiết kế Thi công</a>
+                    <li class="menu-has-children"><a href="#service">Thiết kế Thi công</a>
                         <ul>
                             {% for menu in ServiceMenu %}
                                 {% if menu.detailsubcategory_set.count > 1 %}
                                     <li class="menu-has-children">
-                                        <a href="/thiet-ke-thi-cong/{{ menu.code }}">{{ menu.name }}</a>
+                                        <a href="{% url 'service_subcategory' menu.code %}">{{ menu.name }}</a>
                                         <ul>
                                             {% for submenu in menu.detailsubcategory_set.all %}
-                                                <li><a href="/thiet-ke-thi-cong/{{ menu.code }}/{{ submenu.code }}">{{ submenu.name }}</a></li>
+                                                <li><a href="{% url 'service_detailsubcategory' menu.code submenu.code %}">{{ submenu.name }}</a></li>
                                             {% endfor %}
                                         </ul>
                                     </li>
                                 {% else %}
-                                    <li><a href="/thiet-ke-thi-cong/{{ menu.code }}">{{ menu.name }}</a></li>
+                                    <li><a href="{% url 'service_subcategory' menu.code %}">{{ menu.name }}</a></li>
                                 {% endif %}
                             {% endfor %}
                         </ul>
                     </li>
                     <!--Product-->
-                    <li class="menu-has-children"><a href="">Sản phẩm</a>
+                    <li class="menu-has-children"><a href="#service">Sản phẩm</a>
                         <ul>
                             {% for menu in ProductMenu %}
                                 {% if menu.detailsubcategory_set.count > 1 %}
                                     <li class="menu-has-children">
-                                        <a href="/san-pham/{{ menu.code }}">{{ menu.name }}</a>
+                                        <a href="{% url 'product_subcategory' menu.code %}">{{ menu.name }}</a>
                                         <ul>
                                             {% for submenu in menu.detailsubcategory_set.all %}
-                                                <li><a href="/san-pham/{{ menu.code }}/{{ submenu.code }}">{{ submenu.name }}</a></li>
+                                                <li><a href="{% url 'product_detailsubcategory' menu.code submenu.code %}">{{ submenu.name }}</a></li>
                                             {% endfor %}
                                         </ul>
                                     </li>
                                 {% else %}
-                                    <li><a href="#">{{ menu.name }}</a></li>
+                                    <li><a href="{% url 'product_subcategory' menu.code %}">{{ menu.name }}</a></li>
                                 {% endif %}
                             {% endfor %}
                         </ul>
@@ -130,7 +130,7 @@
                     <p class="mx-auto">
                         {{ CTAContent.description }}
                     </p>
-                    <a href="#" class="primary-btn text-uppercase">Yêu cầu tư vấn</a>
+                    <a href="#lien-he" class="primary-btn text-uppercase">Yêu cầu tư vấn</a>
                 </div>
             </div>
         </div>
