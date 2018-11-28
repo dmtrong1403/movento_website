@@ -52,11 +52,19 @@
                                 <div class="feature-img">
                                     <img class="img-fluid" src="{{ post.avatar.url }}" alt="">
                                 </div>
-                                <a class="posts-title" href="/thiet-ke-thi-cong/{{ SubCategory.code }}/{{ DetailSubCategory.code }}/{{ post.code }}"><h3>{{ post.name }}</h3></a>
-                                <p class="excert">
-                                    {{ post.description }}
-                                </p>
-                                <a href="#" class="primary-btn">Xem thêm</a>
+                                {% if SubCategory.cate_type == '1' %}
+                                    <a class="posts-title" href="{% url 'product_detailpost' SubCategory.code DetailSubCategory.code post.code %}"><h3>{{ post.name }}</h3></a>
+                                    <p class="excert">
+                                        {{ post.description }}
+                                    </p>
+                                    <a href="{% url 'product_detailpost' SubCategory.code DetailSubCategory.code post.code %}" class="primary-btn">Xem thêm</a>
+                                {% else %}
+                                    <a class="posts-title" href="{% url 'service_detailpost' SubCategory.code DetailSubCategory.code post.code %}"><h3>{{ post.name }}</h3></a>
+                                    <p class="excert">
+                                        {{ post.description }}
+                                    </p>
+                                    <a href="{% url 'service_detailpost' SubCategory.code DetailSubCategory.code post.code %}" class="primary-btn">Xem thêm</a>
+                                {% endif %}
                             </div>
                         </div>
                     {% endfor %}
@@ -100,9 +108,16 @@
                                     <div class="single-post-list d-flex flex-row align-items-center thumb">
                                         <img class="img-fluid" src="{{ post.avatar.url }}" alt="">
                                     </div>
-                                    <div class="single-post-list d-flex flex-row align-items-center details">
-                                        <a href="#"><h6>{{ post.name }}</h6></a>
-                                    </div>
+                                    {% if SubCategory.cate_type == '1' %}
+                                        <div class="single-post-list d-flex flex-row align-items-center details">
+                                            <a href="{% url 'product_detailpost' SubCategory.code DetailSubCategory.code post.code %}"><h6>{{ post.name }}</h6></a>
+                                        </div>
+                                    {% else %}
+                                        <div class="single-post-list d-flex flex-row align-items-center details">
+                                            <a href="{% url 'service_detailpost' SubCategory.code DetailSubCategory.code post.code %}"><h6>{{ post.name }}</h6></a>
+                                        </div>
+                                    {% endif %}
+
                                 </div>
                             {% endfor %}
                         </div>

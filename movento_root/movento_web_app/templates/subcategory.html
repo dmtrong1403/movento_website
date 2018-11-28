@@ -39,7 +39,11 @@
                         <div class="single-cat-widget">
                             <div class="content relative">
                                 <div class="overlay overlay-bg"></div>
-                                <a href="{% if SubCategory.cate_type == '1' %}{% url 'product_detailsubcategory' SubCategory.code category.code %}{% else %}{% url 'service_detailsubcategory' SubCategory.code category.code %}{% endif %}" target="_blank">
+                                {% if SubCategory.cate_type == '1' %}
+                                    <a href="{% url 'product_detailsubcategory' SubCategory.code category.code %}" target="_blank">
+                                {% else %}
+                                    <a href="{% url 'service_detailsubcategory' SubCategory.code category.code %}" target="_blank">
+                                {% endif %}
                                   <div class="thumb">
                                      <img class="content-image img-fluid d-block mx-auto" src="{{ category.image.url }}" alt="">
                                   </div>
