@@ -22,7 +22,7 @@
                 <h1 class="text-white">
                     {{ SubCategory.name }}
                 </h1>
-                <p class="text-white link-nav"><a href="index.html">Trang chủ </a>  <span class="lnr lnr-arrow-right"></span>  <a href="projects.html"> {{ SubCategory.name }}</a></p>
+                <p class="text-white link-nav"><a href="{% url 'home' %}">Trang chủ </a>  <span class="lnr lnr-arrow-right"></span>  <a href=""> {{ SubCategory.name }}</a></p>
             </div>
         </div>
     </div>
@@ -39,7 +39,7 @@
                         <div class="single-cat-widget">
                             <div class="content relative">
                                 <div class="overlay overlay-bg"></div>
-                                <a href="{% if SubCategory.cate_type == '1' %}/san-pham/{{ SubCategory.code }}/{{ category.code }}{% else %}/thiet-ke-thi-cong/{{ SubCategory.code }}/{{ category.code }}{% endif %}" target="_blank">
+                                <a href="{% if SubCategory.cate_type == '1' %}{% url 'product_detailsubcategory' SubCategory.code category.code %}{% else %}{% url 'service_detailsubcategory' SubCategory.code category.code %}{% endif %}" target="_blank">
                                   <div class="thumb">
                                      <img class="content-image img-fluid d-block mx-auto" src="{{ category.image.url }}" alt="">
                                   </div>
