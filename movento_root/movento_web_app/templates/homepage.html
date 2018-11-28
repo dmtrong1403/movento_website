@@ -28,7 +28,7 @@ Movento
                 <p class="text-white mx-auto">
                     {{ CoverContent.description }}
                 </p>
-                <a href="#" class="primary-btn header-btn text-uppercase mt-10">Tìm hiểu ngay</a>
+                <a href="#lien-he" class="primary-btn header-btn text-uppercase mt-10">Tìm hiểu ngay</a>
             </div>
         </div>
     </div>
@@ -90,15 +90,17 @@ Movento
             </div>
         </div>
         <div class="row">
-            {% for category in SubCategory %}
-                {% if category.is_homepage_content %}
-                    <div class="col-lg-4">
-                        <div class="single-service">
-                            <a href="#"><h4>{{ category.name }}</h4></a>
-                            <p>{{ category.description }}</p>
-                        </div>
+            {% for sub_category in DisplayServiceCategory %}
+                <div class="col-lg-4">
+                    <div class="single-service">
+                        {% if sub_category in ServiceMenu %}
+                            <a href="{% url 'service_subcategory' sub_category.code %}"><h4>{{ sub_category.name }}</h4></a>
+                        {% else %}
+                            <a href="{% url 'product_subcategory' sub_category.code %}"><h4>{{ sub_category.name }}</h4></a>
+                        {% endif %}
+                        <p>{{ sub_category.description }}</p>
                     </div>
-                {% endif %}
+                </div>
             {% endfor %}
         </div>
     </div>
@@ -113,10 +115,13 @@ Movento
                 <h1 class="pb-10">{{ ProductContent.title }}</h1>
             </div>
         </div>
-        <!-- Thiết kế kiến trúc -->
         {% for sub_category in DisplayServiceCategory %}
         <div class="wrapper-center">
-            <a class="primary-btn text-uppercase gallery-btn" href="#">{{ sub_category.name }}</a>
+            {% if sub_category in ServiceMenu %}
+                <a class="primary-btn text-uppercase gallery-btn" href="{% url 'service_subcategory' sub_category.code %}">{{ sub_category.name }}</a>
+            {% else %}
+                <a class="primary-btn text-uppercase gallery-btn" href="{% url 'product_subcategory' sub_category.code %}">{{ sub_category.name }}</a>
+            {% endif %}
         </div>
         <div class="row">
             {% for detail_category in sub_category.detailsubcategory_set.all %}
@@ -134,9 +139,9 @@ Movento
                                 <div class="single-gallery">
                                     <div class="content">
                                         {% if sub_category in ServiceMenu %}
-                                        <a href="/thiet-ke-thi-cong/{{ sub_category.code }}/{{ detail_category.code }}/{{ post.code }}" target="_blank">
+                                        <a href="{% url 'service_detailpost' sub_category.code detail_category.code post.code %}" target="_blank">
                                         {% else %}
-                                        <a href="/san-pham/{{ sub_category.code }}/{{ detail_category.code }}/{{ post.code }}" target="_blank">
+                                        <a href="{% url 'product_detailpost' sub_category.code detail_category.code post.code %}" target="_blank">
                                         {% endif %}
                                             <div class="content-overlay"></div>
                                             <img class="content-image img-fluid d-block mx-auto"
