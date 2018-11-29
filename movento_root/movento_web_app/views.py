@@ -23,7 +23,6 @@ def index(request):
         "ProductContent": Content.objects.filter(page="0", component_type="3").first(),
         "CommentTitle": Content.objects.filter(page="0", component_type="4").first(),
         "CommentContent": CustomerComment.objects.all(),
-        "SubCategory": SubCategory.objects.all(),
         "DisplayServiceCategory": SubCategory.objects.filter(cate_type="0", is_homepage_content=True),
     }
     # assert False
