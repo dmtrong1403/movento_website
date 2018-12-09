@@ -12,6 +12,9 @@ body {
 	font-family: 'Montserrat', sans-serif !important;
 }
 
+strong {
+    font-weight: bold !important;
+}
 /* Logo & nav */
 #logo img{
 	width:60px;
