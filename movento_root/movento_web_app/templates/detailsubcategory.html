@@ -50,7 +50,7 @@
                             </div>
                             <div class="col-lg-9 col-md-9 ">
                                 <div class="feature-img">
-                                    <img class="img-fluid" src="{{ post.avatar.url }}" alt="">
+                                    <img class="img-fluid" src="{{ post.avatar.url }}" alt="{{ post.image_alt }}">
                                 </div>
                                 {% if SubCategory.cate_type == '1' %}
                                     <a class="posts-title" href="{% url 'product_detailpost' SubCategory.code DetailSubCategory.code post.code %}"><h3>{{ post.name }}</h3></a>
@@ -106,7 +106,7 @@
                             {% for post in OutStandingPosts %}
                                 <div class="popular-post-list">
                                     <div class="single-post-list d-flex flex-row align-items-center thumb">
-                                        <img class="img-fluid" src="{{ post.avatar.url }}" alt="">
+                                        <img class="img-fluid" src="{{ post.avatar.url }}" alt="{{ post.image_alt }}">
                                     </div>
                                     {% if SubCategory.cate_type == '1' %}
                                         <div class="single-post-list d-flex flex-row align-items-center details">
@@ -122,7 +122,7 @@
                             {% endfor %}
                         </div>
                         <div class="single-sidebar-widget ads-widget">
-                            <a><img class="img-fluid" src="{{ Advertising.contentimages_set.first.image.url }}" alt=""></a>
+                            <a><img class="img-fluid" src="{{ Advertising.contentimages_set.first.image.url }}" alt="{{ Advertising.contentimages_set.first.image_alt }}"></a>
                         </div>
                     </div>
                 </div>

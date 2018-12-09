@@ -33,7 +33,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 project-details-left">
-                <img class="img-fluid" src="{{ DetailPost.avatar.url }}" alt="">
+                <img class="img-fluid" src="{{ DetailPost.avatar.url }}" alt="{{ DetailPost.image_alt }}">
             </div>
             <div class="col-lg-6 project-details-right">
                 <h3 class="pb-20">{{ DetailPost.name }}</h3>
@@ -52,7 +52,9 @@
                 </div>
             </div>
             <div class="col-lg-12 project-desc mt-60">
-                <p>{{ DetailPost.main_content }}</p>
+                {% autoescape off %}
+                    <p>{{ DetailPost.main_content }}</p>
+                {% endautoescape %}
             </div>
         </div>
     </div>
@@ -63,7 +65,7 @@
 <div class="row-grid container">
     <div class="column-grid">
         {% for postimage in DetailPost.detailpostimages_set.all %}
-            <img src="{{ postimage.image.url }}" style="width:100%">
+            <img src="{{ postimage.image.url }}" style="width:100%" alt="{{ postimage.image_alt }}">
             {% if forloop.counter0 == GridImageColumnCount %}
                 </div>
 			    <div class="column-grid">

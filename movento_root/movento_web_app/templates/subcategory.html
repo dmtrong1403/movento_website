@@ -45,7 +45,7 @@
                                     <a href="{% url 'service_detailsubcategory' SubCategory.code category.code %}" target="_blank">
                                 {% endif %}
                                   <div class="thumb">
-                                     <img class="content-image img-fluid d-block mx-auto" src="{{ category.image.url }}" alt="">
+                                     <img class="content-image img-fluid d-block mx-auto" src="{{ category.image.url }}" alt="{{ category.image_alt }}">
                                   </div>
                                   <div class="content-details">
                                     <h4 class="content-title mx-auto text-uppercase">{{ category.name }}</h4>

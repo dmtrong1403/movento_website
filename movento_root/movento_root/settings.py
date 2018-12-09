@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'movento_web_app',
+    'froala_editor',
 ]
 
 MIDDLEWARE = [
@@ -119,3 +120,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Email configuration
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'noreply.movento.com.vn@gmail.com'
+EMAIL_HOST_PASSWORD = 'mjbkbgjljnqvahhf'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True

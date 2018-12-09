@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% block Title %}
+Liên hệ
+{% endblock Title %}
+
+{% block MainContent %}
+<link rel="stylesheet" href="{% static 'css/custom_css/homepage.css' %}">
+
+<style>
+    {% with CoverContent.contentimages_set.all|first as firstItem %}
+        .banner-area {
+            background: url({{ firstItem.image.url }}) center;
+            background-size: cover;
+        }
+    {% endwith %}
+</style>
+
+<section class="banner-area relative" id="home">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="about-content col-lg-12">
+                <h1 class="text-white">
+                    Liên hệ
+                </h1>
+                <p class="text-white link-nav"><a href="{% url 'home' %}">Trang chủ </a>  <span class="lnr lnr-arrow-right"></span>  <a href=""> Liên hệ </a></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container pt-50 pb-50">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14896.076594994245!2d105.7529162!3d21.0319198!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x316de782537c21f0!2zTuG7mWkgVGjhuqV0IE1vdmVudG8!5e0!3m2!1svi!2s!4v1544261256578" class="col-lg-12" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+</div>
+{% endblock MainContent %}
+
+{% block CustomJs %}
+<script>
+    $(".callto-action-area").hide();
+    $(".brands-area").hide();
+</script>
+{% endblock CustomJs %}

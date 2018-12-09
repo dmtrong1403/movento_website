@@ -1,6 +1,5 @@
 from django.db import models
-from datetime import date
-
+from froala_editor.fields import FroalaField
 
 #
 # Category models
@@ -22,7 +21,8 @@ class SubCategory(models.Model):
     name = models.CharField(max_length=100, verbose_name="Tên danh mục")
     cate_type = models.CharField(max_length=20, choices=CATE_TYPE, verbose_name="Loại danh mục")
     description = models.TextField("Mô tả")
-    image = models.ImageField(upload_to='category_images', verbose_name="Hình ảnh")
+    image = models.ImageField(upload_to='category_images', verbose_name="Hình ảnh đại diện")
+    image_alt = models.CharField(max_length=100, verbose_name="Mô tả ảnh đại diện", default="")
     is_homepage_content = models.BooleanField("Hiển thị ở mục giới thiệu ?", default=True)
     column_type = models.CharField(max_length=20, choices=COLUMN_TYPE, verbose_name="Số cột hiển thị")
     code = models.SlugField(max_length=100, verbose_name="Mã danh mục")
@@ -38,7 +38,8 @@ class SubCategory(models.Model):
 class DetailSubCategory(models.Model):
     name = models.CharField(max_length=100, verbose_name="Tên danh mục")
     description = models.TextField("Mô tả")
-    image = models.ImageField(upload_to='category_images', verbose_name="Hình ảnh")
+    image = models.ImageField(upload_to='category_images', verbose_name="Hình ảnh đại diện")
+    image_alt = models.CharField(max_length=100, verbose_name="Mô tả ảnh đại diện", default="")
     parent_cate = models.ForeignKey(SubCategory, blank=True, null=True, on_delete=models.CASCADE,
                                     verbose_name="Danh mục cha")
     is_homepage_content = models.BooleanField("Hiển thị ở mục giới thiệu ?", default=True)
@@ -89,6 +90,7 @@ class Content(models.Model):
 
 class ContentImages(models.Model):
     image = models.ImageField(upload_to='content_images', verbose_name="Hình ảnh")
+    image_alt = models.CharField(max_length=100, verbose_name="Mô tả ảnh", default="")
     content = models.ForeignKey(Content, blank=True, null=True, on_delete=models.CASCADE,
                                 verbose_name="Nội dung")
 
@@ -123,6 +125,7 @@ class Tag(models.Model):
 class DetailPost(models.Model):
     name = models.CharField(max_length=100, verbose_name="Tên bài viết")
     avatar = models.ImageField(upload_to='post_avatar_images', verbose_name="Ảnh đại diện")
+    image_alt = models.CharField(max_length=100, verbose_name="Mô tả ảnh đại diện", default="")
     category = models.ForeignKey(DetailSubCategory, blank=True, null=True, on_delete=models.CASCADE,
                                  verbose_name="Danh mục")
     tag = models.ManyToManyField(Tag, verbose_name="Tags")
@@ -131,7 +134,7 @@ class DetailPost(models.Model):
     start_date = models.DateField(verbose_name="Ngày thiết kế")
     code = models.SlugField(max_length=100, verbose_name="Mã bài viết")
     description = models.TextField(blank=True, null=True, verbose_name="Mô tả ngắn")
-    main_content = models.TextField(blank=True, null=True, verbose_name="Nội dung")
+    main_content = FroalaField(default="")
     is_outstanding = models.BooleanField(default=False, verbose_name="Bài viết nổi bật ?")
 
     class Meta:
@@ -144,6 +147,7 @@ class DetailPost(models.Model):
 
 class DetailPostImages(models.Model):
     image = models.ImageField(upload_to='post_detail_images', verbose_name="Hình ảnh")
+    image_alt = models.CharField(max_length=100, verbose_name="Mô tả ảnh", default="")
     post = models.ForeignKey(DetailPost, blank=True, null=True, on_delete=models.CASCADE,
                              verbose_name="Bài viết")
 
@@ -162,7 +166,8 @@ class DetailPostImages(models.Model):
 class Partner(models.Model):
     name = models.CharField(max_length=100, verbose_name="Tên đối tác")
     web = models.URLField(blank=True, verbose_name="Link web")
-    image = models.ImageField(upload_to='partner_images', verbose_name="Hình ảnh")
+    image = models.ImageField(upload_to='partner_images', verbose_name="Hình ảnh đại diện")
+    image_alt = models.CharField(max_length=100, verbose_name="Mô tả ảnh đại diện", default="")
 
     class Meta:
         verbose_name = "Đối tác"
@@ -178,7 +183,8 @@ class Partner(models.Model):
 
 class CustomerComment(models.Model):
     name = models.CharField(max_length=100, verbose_name="Tên khách hàng")
-    image = models.ImageField(upload_to='content_images', verbose_name="Hình ảnh")
+    image = models.ImageField(upload_to='content_images', verbose_name="Hình ảnh đại diện")
+    image_alt = models.CharField(max_length=100, verbose_name="Mô tả ảnh đại diện", default="")
     description = models.TextField(blank=True, null=True, verbose_name="Nội dung")
 
     class Meta:

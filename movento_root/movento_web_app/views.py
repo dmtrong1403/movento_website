@@ -1,7 +1,9 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
-
+from .forms import ContactForm
+from django.core.mail import send_mail
 from .models import *
+from datetime import datetime
 
 
 def base_context():
@@ -11,12 +13,13 @@ def base_context():
         "CTAContent": Content.objects.filter(page="0", component_type="5").first(),
         "Contact": Contact.objects.all().first(),
         "Partners": Partner.objects.all(),
+        "ContactForm": ContactForm(),
     }
 
 
 def index(request):
     context = {
-        "Title": "Movento",
+        "Title": "Trang chủ",
         "CoverContent": Content.objects.filter(page="0", component_type="0").first(),
         "SliderContent": Content.objects.filter(page="0", component_type="1").first(),
         "FeatureContent": Content.objects.filter(page="0", component_type="2").first(),
@@ -62,3 +65,43 @@ def detailpost(request, subcatename, detailsubcatename, detailpostname):
         "GridImageColumnCount": int(post.detailpostimages_set.all().count() / 2),
     }
     return render(request, 'detailpost.html', {**context, **base_context()})
+
+
+def contact(request):
+    context = {
+        "CoverContent": Content.objects.filter(page="0", component_type="0").first(),
+    }
+    return render(request, 'contact.html', {**context, **base_context()})
+
+
+def about(request):
+    context = {
+        "CoverContent": Content.objects.filter(page="0", component_type="0").first(),
+    }
+    return render(request, 'about.html', {**context, **base_context()})
+
+
+def submit_request(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            message = """
+            Tên khách hàng: {name}
+            Email: {email}
+            Số điện thoại: {phone}
+            Nội dung yêu cầu: {message}
+            """.format(name=cd['name'], email=cd['email'], phone=cd['phone'], message=cd['message'])
+            send_mail(
+                'Yêu cầu tư vấn {now}'.format(now=datetime.now()),
+                message,
+                'trong.dm@livezone.vn',
+                ['movento.vn@gmail.com'],
+                fail_silently=False,
+            )
+    context = {
+        "CoverContent": Content.objects.filter(page="0", component_type="0").first(),
+    }
+    return render(request, 'success.html', {**context, **base_context()})
+
+

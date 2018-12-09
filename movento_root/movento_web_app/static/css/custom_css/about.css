@@ -1,0 +1,21 @@
+.single-feature {
+	min-height: 180px;
+}
+#slogan-heading {
+	font-family: 'Playfair Display', serif;
+	font-size: 48px;
+	line-height:45px !important;
+
+}
+.about-trailer {
+text-align: justify !important;
+}
+
+.commit-item {
+	height: 8em !important;
+}
+
+.center{
+	text-align: center;
+	color:#c6b069;
+}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% block Title %}
+Cảm ơn !
+{% endblock Title %}
+
+{% block MainContent %}
+<link rel="stylesheet" href="{% static 'css/custom_css/homepage.css' %}">
+
+<style>
+    {% with CoverContent.contentimages_set.all|first as firstItem %}
+        .banner-area {
+            background: url({{ firstItem.image.url }}) center;
+            background-size: cover;
+        }
+    {% endwith %}
+</style>
+
+<section class="banner-area relative" id="home">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="about-content col-lg-12">
+                <h1 class="text-white">
+                    Gửi yêu cầu thành công
+                </h1>
+                <p class="text-white link-nav"><a href="{% url 'home' %}">Trang chủ </a>  <span class="lnr lnr-arrow-right"></span>  <a href="">Gửi yêu cầu thành công</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container pt-50 pb-50" style="text-align:center">
+    <h1>Cảm ơn bạn !</h1>
+    <p>Bạn Đã Đăng Ký Thành Công Chúng Tôi Sẽ Liên Hệ Với Bạn Trong Thời Gian Nhanh Nhất</p>
+</div>
+{% endblock MainContent %}
+
+{% block CustomJs %}
+<script>
+    $(".callto-action-area").hide();
+    $(".brands-area").hide();
+    $("footer").hide();
+</script>
+{% endblock CustomJs %}

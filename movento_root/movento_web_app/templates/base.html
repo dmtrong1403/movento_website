@@ -5,7 +5,7 @@
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="">
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
     <!-- Meta Description -->
     <meta name="description" content="">
     <!-- Meta Keyword -->
@@ -65,14 +65,14 @@
     <div class="container main-menu">
         <div class="row align-items-center justify-content-between d-flex">
             <div id="logo">
-                <a href="{% url 'home' %}"><img src="{% static 'img/logo.svg' %}" alt="" title=""/></a>
+                <a href="{% url 'home' %}"><img src="{% static 'img/logo.svg' %}" alt="Movento Logo"/></a>
             </div>
             <nav id="nav-menu-container">
                 <ul class="nav-menu">
                     <li class="menu-active"><a href="{% url 'home' %}">Trang chủ</a></li>
-                    <!--<li><a href="about.html">Giới thiệu</a></li>-->
+                    <li><a href="{% url 'about' %}">Hồ sơ năng lực</a></li>
                     <!--Services-->
-                    <li class="menu-has-children"><a href="#service">Thiết kế Thi công</a>
+                    <li class="menu-has-children"><a href="#service">Dự án</a>
                         <ul>
                             {% for menu in ServiceMenu %}
                                 {% if menu.detailsubcategory_set.count > 1 %}
@@ -109,7 +109,7 @@
                             {% endfor %}
                         </ul>
                     </li>
-                    <li><a href="#lien-he">Liên hệ</a></li>
+                    <li><a href="{% url 'contact' %}">Liên hệ</a></li>
                 </ul>
             </nav><!-- #nav-menu-container -->
         </div>
@@ -146,7 +146,7 @@
             <div class="row align-items-center active-brand-carusel justify-content-start no-gutters">
                 {% for partner in Partners %}
                     <div class="col single-brand">
-                        <a href="{{ partner.web }}"><img class="mx-auto" src="{{ partner.image.url }}" alt=""></a>
+                        <a href="{{ partner.web }}"><img class="mx-auto" src="{{ partner.image.url }}" alt="{{ partner.image_alt }}"></a>
                     </div>
                 {% endfor %}
             </div>
@@ -194,30 +194,27 @@
                 </div>
             </div>
             <div class="col-lg-8">
-                <form class="form-area " id="myForm" action="mail.php" method="post" class="contact-form text-right">
+                <form action="{% url 'success' %}" method="POST" class="form-area contact-form text-right">
+                    {% csrf_token %}
+                    {% if form.non_field_errors %}
+                        <ul>
+                          {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                          {% endfor %}
+                        </ul>
+                    {% endif %}
                     <div class="row">
-                        <div class="col-lg-6 form-group">
-                            <input name="name" placeholder="Họ tên" onfocus="this.placeholder = ''"
-                                   onblur="this.placeholder = 'Họ tên'" class="common-input mb-20 form-control"
-                                   required="" type="text">
-
-                            <input name="email" placeholder="Email"
-                                   pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
-                                   onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'"
-                                   class="common-input mb-20 form-control" required="" type="email">
-
-                            <input name="subject" placeholder="Số điện thoại" onfocus="this.placeholder = ''"
-                                   onblur="this.placeholder = 'Số điện thoại'" class="common-input mb-20 form-control"
-                                   required="" type="text">
-                        </div>
-                        <div class="col-lg-6 form-group">
-                            <textarea class="common-textarea form-control" name="message" placeholder="Mô tả yêu cầu"
-                                      onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mô tả yêu cầu'"
-                                      required=""></textarea>
-                        </div>
+                        {% for field in ContactForm.visible_fields %}
+                            {% if forloop.counter0 == 0 or forloop.counter0 == 3 %}
+                                <div class="col-lg-6 form-group">
+                            {% endif %}
+                                    {{ field }}
+                            {% if forloop.counter0 == 3 or forloop.counter0 == 2 %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
                         <div class="col-lg-12">
-                            <div class="alert-msg" style="text-align: left;"></div>
-                            <button class="genric-btn primary circle" style="float: right;">Gửi yêu cầu</button>
+                            <input type="submit" value="Gửi yêu cầu" class="genric-btn primary circle" style="float: right;"/>
                         </div>
                     </div>
                 </form>
