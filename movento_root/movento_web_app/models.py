@@ -42,7 +42,6 @@ class DetailSubCategory(models.Model):
     image_alt = models.CharField(max_length=100, verbose_name="Mô tả ảnh đại diện", default="")
     parent_cate = models.ForeignKey(SubCategory, blank=True, null=True, on_delete=models.CASCADE,
                                     verbose_name="Danh mục cha")
-    is_homepage_content = models.BooleanField("Hiển thị ở mục giới thiệu ?", default=True)
     code = models.SlugField(max_length=100, verbose_name="Mã danh mục")
 
     class Meta:

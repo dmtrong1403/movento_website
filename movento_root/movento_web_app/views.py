@@ -36,6 +36,7 @@ def subcategory(request, subcatename):
     subcategory_obj = SubCategory.objects.filter(code=subcatename).first()
     context = {
         "SubCategory": subcategory_obj,
+        "DetailSubCategory": subcategory_obj.detailsubcategory_set.all(),
         "evenlist": [i for i in range(subcategory_obj.detailsubcategory_set.all().count() + 1) if i % 2 == 0]
     }
     return render(request, 'subcategory.html', {**context, **base_context()})
