@@ -63,12 +63,14 @@
 
 <!-- Photo Grid -->
 <div class="row-grid container">
-    <div class="column-grid">
+    <div class="column-grid gallery">
         {% for postimage in DetailPost.detailpostimages_set.all %}
-            <img src="{{ postimage.image.url }}" style="width:100%" alt="{{ postimage.image_alt }}">
+            <a href="{{ postimage.image.url }}" data-lightbox="mygallery">
+                <img src="{{ postimage.image.url }}" style="width:100%" alt="{{ postimage.image_alt }}">
+            </a>
             {% if forloop.counter0 == GridImageColumnCount %}
                 </div>
-			    <div class="column-grid">
+			    <div class="column-grid gallery">
             {% endif %}
         {% endfor %}
     </div>
@@ -78,6 +80,5 @@
 {% endblock MainContent %}
 
 {% block CustomJs %}
-<script>
-</script>
+<script type="text/javascript" src="{% static 'js/lightbox-plus-jquery.min.js' %}"></script>
 {% endblock CustomJs %}

@@ -27,3 +27,17 @@
 .section-gap {
     padding: 50px 0;
 }
+
+.gallery {
+	margin:;
+}
+.gallery img {
+	transition: 0.5s;
+	padding:;
+	width:;
+}
+.gallery img:hover {
+	filter: grayscale(0%);
+	transform: scale(1.05);
+	overflow: hide;
+}
