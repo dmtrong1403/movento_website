@@ -7,6 +7,7 @@
 {% block MainContent %}
 <link rel="stylesheet" href="{% static 'css/custom_css/detailpost.css' %}">
 <link rel="stylesheet" href="{% static 'css/custom_css/lightbox.min.css' %}">
+<script type="text/javascript" src="{% static 'js/lightbox-plus-jquery.min.js' %}"></script>
 <style>
     .banner-area {
         background: url({{ DetailSubCategory.image.url }}) center;
@@ -81,5 +82,4 @@
 {% endblock MainContent %}
 
 {% block CustomJs %}
-<script type="text/javascript" src="{% static 'js/lightbox-plus-jquery.min.js' %}"></script>
 {% endblock CustomJs %}

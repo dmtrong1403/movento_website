@@ -126,12 +126,14 @@
             <div class="callto-action-wrap col-lg-12 relative section-gap">
                 <div class="content">
                     <h1>
-                        {{ CTAContent.title }}
+                        {% autoescape off %}
+                            {{ CTAContent.title }}
+                        {% endautoescape %}
                     </h1>
                     <p class="mx-auto">
                         {{ CTAContent.description }}
                     </p>
-                    <a href="#lien-he" class="primary-btn text-uppercase">Yêu cầu tư vấn</a>
+                    <a href="{% url 'contact' %}" class="primary-btn text-uppercase">Yêu cầu tư vấn</a>
                 </div>
             </div>
         </div>

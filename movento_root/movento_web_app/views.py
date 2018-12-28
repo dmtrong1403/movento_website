@@ -45,13 +45,14 @@ def subcategory(request, subcatename):
 def detailsubcategory(request, subcatename, detailsubcatename):
     detailsubcategory = DetailSubCategory.objects.filter(code=detailsubcatename).first()
     detailpost_list = detailsubcategory.detailpost_set.all()
-    paginator = Paginator(detailpost_list, 10)  # Show 10 contacts per page
+    paginator = Paginator(detailpost_list, 5)  # Show 10 contacts per page
     page = request.GET.get('page')
+    detailpost_top5 = detailsubcategory.detailpost_set.filter(is_outstanding=True).order_by('-id')[:5]
     context = {
         "SubCategory": SubCategory.objects.filter(code=subcatename).first(),
         "DetailSubCategory": detailsubcategory,
         "DetailPosts": paginator.get_page(page),
-        "OutStandingPosts": detailpost_list.filter(is_outstanding=True),
+        "OutStandingPosts": detailpost_top5,
         "Advertising": Content.objects.filter(page='2', component_type='6').first(),
     }
     return render(request, 'detailsubcategory.html', {**context, **base_context()})
@@ -96,7 +97,7 @@ def submit_request(request):
             send_mail(
                 'Yêu cầu tư vấn {now}'.format(now=datetime.now()),
                 message,
-                'trong.dm@livezone.vn',
+                'noreply.movento.com.vn@gmail.com',
                 ['movento.vn@gmail.com'],
                 fail_silently=False,
             )
