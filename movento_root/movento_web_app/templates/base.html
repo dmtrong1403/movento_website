@@ -131,7 +131,9 @@
                         {% endautoescape %}
                     </h1>
                     <p class="mx-auto">
-                        {{ CTAContent.description }}
+                        {% autoescape off %}
+                            {{ CTAContent.description }}
+                        {% endautoescape %}
                     </p>
                     <a href="{% url 'contact' %}" class="primary-btn text-uppercase">Yêu cầu tư vấn</a>
                 </div>
