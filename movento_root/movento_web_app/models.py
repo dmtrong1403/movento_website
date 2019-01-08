@@ -65,7 +65,14 @@ class Content(models.Model):
         ('3', 'Công trình tiêu biểu'),
         ('4', 'Nhận xét khách hàng'),
         ('5', 'Call to action'),
-        ('6', 'Quảng cáo')
+        ('7', 'Giới thiệu chung về công ty'),
+        ('8', 'Quá trình thành lập và phát triển'),
+        ('9', 'Cơ sở vật chất'),
+        ('10', 'Ngành nghề kinh doanh'),
+        ('11', 'Các dự án đã thực hiện'),
+        ('12', 'Tầm nhìn & sứ mệnh, giá trị cốt lõi'),
+        ('13', 'Cơ sở pháp lý'),
+        ('14', 'Giới thiệu chung'),
     )
 
     PAGE_TYPE = (
@@ -77,7 +84,7 @@ class Content(models.Model):
     page = models.CharField(max_length=20, choices=PAGE_TYPE, verbose_name="Trang")
     component_type = models.CharField(max_length=20, choices=COMPONENT_TYPE, verbose_name="Bộ phận")
     title = models.CharField(blank=True, null=True, max_length=100, verbose_name="Tiêu đề")
-    description = models.TextField(blank=True, null=True, verbose_name="Nội dung")
+    description = FroalaField(blank=True, null=True, verbose_name="Nội dung")
 
     class Meta:
         verbose_name = "Nội dung trang"

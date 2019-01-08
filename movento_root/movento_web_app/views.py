@@ -79,6 +79,13 @@ def contact(request):
 def about(request):
     context = {
         "CoverContent": Content.objects.filter(page="0", component_type="0").first(),
+        "FirstSection": Content.objects.filter(page="1", component_type="7").first(),
+        "SecondSection": Content.objects.filter(page="1", component_type="8").first(),
+        "ThirdSection": Content.objects.filter(page="1", component_type="9").first(),
+        "FourthSection": Content.objects.filter(page="1", component_type="10").first(),
+        "FifthSection": Content.objects.filter(page="1", component_type="11").first(),
+        "SixthSection": Content.objects.filter(page="1", component_type="12").first(),
+        "ShortDescription": Content.objects.filter(page="1", component_type="13").first(),
     }
     return render(request, 'about.html', {**context, **base_context()})
 
