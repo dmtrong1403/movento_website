@@ -125,16 +125,14 @@
         <div class="row justify-content-center">
             <div class="callto-action-wrap col-lg-12 relative section-gap">
                 <div class="content">
-                    <h1>
-                        {% autoescape off %}
+                    {% autoescape off %}
+                        <h1>
                             {{ CTAContent.title }}
-                        {% endautoescape %}
-                    </h1>
-                    <p class="mx-auto">
-                        {% autoescape off %}
+                        </h1>
+                        <div class="CTA-desc">
                             {{ CTAContent.description }}
-                        {% endautoescape %}
-                    </p>
+                        </div>
+                    {% endautoescape %}
                     <a href="{% url 'contact' %}" class="primary-btn text-uppercase">Yêu cầu tư vấn</a>
                 </div>
             </div>
@@ -246,7 +244,11 @@
 <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
 <script src="{% static 'js/mail-script.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
-
+<script>
+    $( document ).ready(function() {
+        $(".CTA-desc>p").addClass("mx-auto");
+    });
+</script>
 {% block CustomJs %}
 {% endblock CustomJs %}
 </body>
