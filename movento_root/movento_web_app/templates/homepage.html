@@ -139,9 +139,9 @@ Movento
                                 <div class="single-gallery">
                                     <div class="content">
                                         {% if sub_category in ServiceMenu %}
-                                        <a href="{% url 'service_detailpost' sub_category.code detail_category.code post.code %}" target="_blank">
+                                        <a href="{% url 'service_detailpost' sub_category.code detail_category.code post.code %}">
                                         {% else %}
-                                        <a href="{% url 'product_detailpost' sub_category.code detail_category.code post.code %}" target="_blank">
+                                        <a href="{% url 'product_detailpost' sub_category.code detail_category.code post.code %}">
                                         {% endif %}
                                             <div class="content-overlay"></div>
                                             <img class="content-image img-fluid d-block mx-auto"
