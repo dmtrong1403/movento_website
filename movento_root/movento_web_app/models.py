@@ -73,6 +73,8 @@ class Content(models.Model):
         ('12', 'Tầm nhìn & sứ mệnh, giá trị cốt lõi'),
         ('13', 'Cơ sở pháp lý'),
         ('14', 'Giới thiệu chung'),
+        ('15', 'Năng lực kinh nghiệm'),
+        ('16', 'Ban lãnh đạo tổ chức'),
     )
 
     PAGE_TYPE = (
