@@ -111,9 +111,9 @@ Hồ sơ năng lực
     </div>
     <div class="about-item">
         <h2 class="slogan-heading center">{{ NinthSection.title }}</h2>
-        {% autoescape off %}
-        <div class="about-trailer-container">{{ NinthSection.description }}</div>
-        {% endautoescape %}
+        {% with NinthSection.contentimages_set.all|first as OrgImage %}
+            <img class="img-responsive" style="width:100%" src="{{ OrgImage.image.url }}"/>
+        {% endwith %}
     </div>
 </section>
 <!-- End about-official Area  -->
