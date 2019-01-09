@@ -114,6 +114,9 @@ Hồ sơ năng lực
         {% with NinthSection.contentimages_set.all|first as OrgImage %}
             <img class="img-responsive" style="width:100%" src="{{ OrgImage.image.url }}"/>
         {% endwith %}
+        {% autoescape off %}
+        <div class="about-trailer-container">{{ NinthSection.description }}</div>
+        {% endautoescape %}
     </div>
 </section>
 <!-- End about-official Area  -->
