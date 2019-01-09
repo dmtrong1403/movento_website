@@ -85,7 +85,8 @@ def about(request):
         "FourthSection": Content.objects.filter(page="1", component_type="10").first(),
         "FifthSection": Content.objects.filter(page="1", component_type="11").first(),
         "SixthSection": Content.objects.filter(page="1", component_type="12").first(),
-        "ShortDescription": Content.objects.filter(page="1", component_type="13").first(),
+        "SeventhSection": Content.objects.filter(page="1", component_type="13").first(),
+        "ShortDescription": Content.objects.filter(page="1", component_type="14").first(),
     }
     return render(request, 'about.html', {**context, **base_context()})
 

@@ -8,17 +8,19 @@ Hồ sơ năng lực
 <link rel="stylesheet" href="{% static 'css/custom_css/about.css' %}">
 
 <style>
-    {% with CoverContent.contentimages_set.all|first as firstItem %}
+    {% with CoverContent.contentimages_set.all|first as coverImage %}
         .banner-area {
-            background: url({{ firstItem.image.url }}) center;
+            background: url({{ coverImage.image.url }}) center;
             background-size: cover;
         }
     {% endwith %}
-    .about-video-right {
-        background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/%28c%29by_Max_Zambelli_for_Mutina_RITAGLIATA.jpg/1200px-%28c%29by_Max_Zambelli_for_Mutina_RITAGLIATA.jpg') no-repeat center;
-        background-size: cover;
-        height: 330px;
-    }
+    {% with ShortDescription.contentimages_set.all|first as aboutRightImage %}
+        .about-video-right {
+            background: url({{ aboutRightImage.image.url }}) no-repeat center;
+            background-size: cover;
+            height: 330px;
+        }
+    {% endwith %}
 </style>
 
 <section class="banner-area relative" id="home">
@@ -44,9 +46,11 @@ Hồ sơ năng lực
                 <h1 id="slogan-heading">
                     {{ ShortDescription.title }}
                 </h1>
+                {% autoescape off %}
                 <p class="about-trailer">
                     {{ ShortDescription.description }}
                 </p>
+                {% endautoescape %}
             </div>
             <div class="col-lg-6 relative about-video-right">
             </div>
@@ -59,31 +63,45 @@ Hồ sơ năng lực
 <section class="container about-official pb-70">
     <div class="about-item">
         <h2 class="slogan-heading center">{{ FirstSection.title }}</h2>
+        {% autoescape off %}
         <p class="about-trailer">{{ FirstSection.description }}</p>
+        {% endautoescape %}
     </div>
     <div class="about-item">
         <h2 class="slogan-heading center">{{ SecondSection.title }}</h2>
-        <p class="about-trailer">{{ SecondSection.description }}</p>
+        {% autoescape off %}
+        <div class="about-trailer-container">{{ SecondSection.description }}</div>
+        {% endautoescape %}
     </div>
     <div class="about-item">
         <h2 class="slogan-heading center">{{ ThirdSection.title }}</h2>
-        <p class="about-trailer">{{ ThirdSection.description }}</p>
+        {% autoescape off %}
+        <div class="about-trailer-container">{{ ThirdSection.description }}</div>
+        {% endautoescape %}
     </div>
     <div class="about-item">
         <h2 class="slogan-heading center">{{ FourthSection.title }}</h2>
-        <p class="about-trailer">{{ FourthSection.description }}</p>
+        {% autoescape off %}
+        <div class="about-trailer-container">{{ FourthSection.description }}</div>
+        {% endautoescape %}
     </div>
     <div class="about-item">
         <h2 class="slogan-heading center">{{ FifthSection.title }}</h2>
-        <p class="about-trailer">{{ FifthSection.description }}</p>
+        {% autoescape off %}
+        <div class="about-trailer-container">{{ FifthSection.description }}</div>
+        {% endautoescape %}
     </div>
     <div class="about-item">
         <h2 class="slogan-heading center">{{ SixthSection.title }}</h2>
-        <p class="about-trailer">{{ SixthSection.description }}</p>
+        {% autoescape off %}
+        <div class="about-trailer-container">{{ SixthSection.description }}</div>
+        {% endautoescape %}
     </div>
     <div class="about-item">
         <h2 class="slogan-heading center">{{ SeventhSection.title }}</h2>
-        <p class="about-trailer">{{ SeventhSection.description }}</p>
+        {% autoescape off %}
+        <div class="about-trailer-container">{{ SeventhSection.description }}</div>
+        {% endautoescape %}
     </div>
 </section>
 <!-- End about-official Area  -->
@@ -169,5 +187,8 @@ Hồ sơ năng lực
 
 {% block CustomJs %}
 <script>
+    $(document).ready(function(){
+        $(".about-trailer-container>p").addClass("about-trailer");
+    });
 </script>
 {% endblock CustomJs %}
