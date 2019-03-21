@@ -76,11 +76,21 @@
             {% endif %}
         {% endfor %}
     </div>
-	<div class="fb-like" data-href="https://www.movento.com.vn/thiet-ke-thi-cong/thiet-ke-thi-cong-kien-truc/thiet-ke-kien-truc-nha-pho/thiet-ke-kien-truc-nha-lien-ke" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+	<!-- Plug in Like/Share -->
+	<div class="fb-like pt-30" data-href="https://www.movento.com.vn/thiet-ke-thi-cong/thiet-ke-thi-cong-kien-truc/thiet-ke-kien-truc-nha-pho/thiet-ke-kien-truc-nha-lien-ke" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+	<!-- Plug in comment -->
+	<div class="fb-comments" data-href="https://www.movento.com.vn/thiet-ke-thi-cong/thiet-ke-thi-cong-kien-truc/thiet-ke-kien-truc-nha-pho/thiet-ke-kien-truc-nha-lien-ke" data-numposts="5"></div>
 </div>
 <!-- End Photo Grid -->
 
 {% endblock MainContent %}
 
 {% block CustomJs %}
+<script type="text/javascript">
+	$( document ).ready(function() {
+		var pageURL = $(location).attr("href");
+		$(".fb-like").attr("data-href", pageURL);
+		$(".fb-comments").attr("data-href", pageURL);
+	});
+</script>
 {% endblock CustomJs %}
