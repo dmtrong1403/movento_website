@@ -159,7 +159,9 @@ class DetailPost(models.Model):
         return str(self.name)
 
     def get_absolute_url(self):
-        return reverse("service_detailpost", args=[self.category.parent_category.code, self.category.code, self.code])
+        detail_subcategory = DetailSubCategory.objects.get(pk=self.category.id)
+        subcategory = SubCategory.objects.get(pk=detail_subcategory.parent_cate.id)
+        return reverse("service_detailpost", args=[subcategory.code, detail_subcategory.code, self.code])
 
 
 class DetailPostImages(models.Model):
