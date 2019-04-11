@@ -56,7 +56,7 @@ class DetailSubCategory(models.Model):
         return str(self.name)
 
     def get_absolute_url(self):
-        return reverse("service_subcategory", args=[self.code,])
+        return reverse("service_detailsubcategory", args=[self.parent_cate.code, self.code])
 
 #
 # Content models
