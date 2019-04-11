@@ -1,5 +1,13 @@
 from django.urls import path
 from . import views
+from .sitemaps import SubCategorySitemap, DetailSubCategorySitemap, DetailPostSitemap
+from django.contrib.sitemaps.views import sitemap
+
+sitemaps = {
+    'SubCategorySitemap': SubCategorySitemap,
+    'DetailSubCategorySitemap': DetailSubCategorySitemap,
+    'DetailPostSitemap': DetailPostSitemap,
+}
 
 urlpatterns = [
     path("", views.index, name="home"),
@@ -12,4 +20,5 @@ urlpatterns = [
     path("lien-he", views.contact, name="contact"),
     path("yeu-cau-tu-van", views.submit_request, name="success"),
     path("ho-so-nang-luc", views.about, name="about"),
+    path("sitemaps.xml", sitemap, {"sitemaps": sitemaps}, name="")
 ]

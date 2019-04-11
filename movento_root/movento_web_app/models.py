@@ -1,5 +1,6 @@
 from django.db import models
 from froala_editor.fields import FroalaField
+from django.urls import reverse
 
 #
 # Category models
@@ -34,6 +35,9 @@ class SubCategory(models.Model):
     def __str__(self):
         return str(self.name)
 
+    def get_absolute_url(self):
+        return reverse("service_subcategory", args=[self.code,])
+
 
 class DetailSubCategory(models.Model):
     name = models.CharField(max_length=100, verbose_name="Tên danh mục")
@@ -51,6 +55,8 @@ class DetailSubCategory(models.Model):
     def __str__(self):
         return str(self.name)
 
+    def get_absolute_url(self):
+        return reverse("service_subcategory", args=[self.code,])
 
 #
 # Content models
@@ -151,6 +157,9 @@ class DetailPost(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+    def get_absolute_url(self):
+        return reverse("service_subcategory", args=[self.code,])
 
 
 class DetailPostImages(models.Model):
