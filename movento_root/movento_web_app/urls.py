@@ -21,5 +21,5 @@ urlpatterns = [
     path("lien-he", views.contact, name="contact"),
     path("yeu-cau-tu-van", views.submit_request, name="success"),
     path("ho-so-nang-luc", views.about, name="about"),
-    path("sitemaps.xml", sitemap, {"sitemaps": sitemaps}, name="")
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="")
 ]
