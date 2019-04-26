@@ -1,6 +1,7 @@
 from django.db import models
-from froala_editor.fields import FroalaField
 from django.urls import reverse
+from froala_editor.fields import FroalaField
+
 
 #
 # Category models
@@ -20,7 +21,7 @@ class SubCategory(models.Model):
         ('4', '4'),
     )
     name = models.CharField(max_length=100, verbose_name="Tên danh mục")
-    cate_type = models.CharField(max_length=20, choices=CATE_TYPE, verbose_name="Loại danh mục")
+    cate_type = models.CharField(max_length=20, choices=CATE_TYPE, verbose_name="Loại danh mục", default='0')
     description = models.TextField("Mô tả")
     image = models.ImageField(upload_to='category_images', verbose_name="Hình ảnh đại diện")
     image_alt = models.CharField(max_length=100, verbose_name="Mô tả ảnh đại diện", default="")
@@ -36,7 +37,7 @@ class SubCategory(models.Model):
         return str(self.name)
 
     def get_absolute_url(self):
-        return reverse("service_subcategory", args=[self.code,])
+        return reverse("service_subcategory", args=[self.code, ])
 
 
 class DetailSubCategory(models.Model):
@@ -57,6 +58,7 @@ class DetailSubCategory(models.Model):
 
     def get_absolute_url(self):
         return reverse("service_detailsubcategory", args=[self.parent_cate.code, self.code])
+
 
 #
 # Content models
@@ -232,3 +234,74 @@ class Contact(models.Model):
 
     def __str__(self):
         return str(self.company_name)
+
+
+#
+# Product models
+#
+
+class ProductCategory(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Tên danh mục")
+    description = models.TextField("Mô tả")
+    is_homepage_content = models.BooleanField("Hiển thị ở mục giới thiệu ?", default=True)
+    code = models.SlugField(max_length=100, verbose_name="Mã danh mục")
+
+    class Meta:
+        verbose_name = "Danh mục sản phẩm"
+        verbose_name_plural = "Danh mục sản phẩm"
+
+    def __str__(self):
+        return str(self.name)
+
+    def get_absolute_url(self):
+        return reverse("product_category", args=[self.code, ])
+
+
+class Product(models.Model):
+    RATING = (
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+    )
+    name = models.CharField(max_length=100, verbose_name="Tên sản phẩm")
+    avatar = models.ImageField(upload_to='post_avatar_images', verbose_name="Ảnh đại diện")
+    image_alt = models.CharField(max_length=100, verbose_name="Mô tả ảnh đại diện", default="")
+    category = models.ForeignKey(ProductCategory, blank=True, null=True, on_delete=models.CASCADE,
+                                 verbose_name="Danh mục")
+    tag = models.ManyToManyField(Tag, verbose_name="Tags")
+    material = models.CharField(verbose_name="Vật liệu", max_length=100, null=True)
+    color = models.CharField(verbose_name="Màu sắc", max_length=100, null=True)
+    rating = models.CharField(verbose_name="Đánh giá", choices=RATING, max_length=1, null=True)
+    price = models.FloatField(verbose_name="Giá niêm yết", blank=True, null=True)
+    discount = models.FloatField(verbose_name="Giảm giá %", blank=True, null=True)
+    actual_price = models.FloatField(verbose_name="Giá cuối")
+    code = models.SlugField(max_length=100, verbose_name="Mã sản phẩm")
+    description = models.TextField(blank=True, null=True, verbose_name="Mô tả ngắn")
+    main_content = FroalaField(default="Mô tả chi tiết")
+    is_outstanding = models.BooleanField(default=False, verbose_name="Sản phẩm nổi bật ?")
+
+    class Meta:
+        verbose_name = "Sản phẩm"
+        verbose_name_plural = "Sản phẩm"
+
+    def __str__(self):
+        return str(self.name)
+
+    def get_absolute_url(self):
+        detail_subcategory = DetailSubCategory.objects.get(pk=self.category.id)
+        subcategory = SubCategory.objects.get(pk=detail_subcategory.parent_cate.id)
+        return reverse("product_detail", args=[subcategory.code, detail_subcategory.code, self.code])
+
+
+class ProductImages(models.Model):
+    image = models.ImageField(upload_to='product_detail_images', verbose_name="Hình ảnh")
+    image_alt = models.CharField(max_length=100, verbose_name="Mô tả ảnh", default="")
+    post = models.ForeignKey(Product, blank=True, null=True, on_delete=models.CASCADE,
+                             verbose_name="Sản phẩm")
+
+    class Meta:
+        verbose_name = "Hình ảnh sản phẩm"
+        verbose_name_plural = "Hình ảnh sản phẩm"
+
+    def __str__(self):
+        return str(self.id)

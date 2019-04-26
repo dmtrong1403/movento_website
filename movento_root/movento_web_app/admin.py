@@ -4,6 +4,22 @@ from .models import *
 
 
 #
+# Product models
+#
+
+class ProductImagesInline(admin.TabularInline):
+    model = ProductImages
+
+
+class ProductAdmin(admin.ModelAdmin):
+    inlines = [ProductImagesInline, ]
+    list_display = ('category', 'name', 'description')
+
+
+admin.site.register(Product, ProductAdmin)
+
+
+#
 # Post models
 #
 
@@ -28,21 +44,20 @@ admin.site.register(DetailPost, DetailPostAdmin)
 #
 
 class DetailSubCategoryAdmin(admin.ModelAdmin):
-    # inlines = [DetailPostInline, ]
     list_display = ('name', 'description')
 
 
-# class DetailSubCategoryInline(admin.TabularInline):
-#     model = DetailSubCategory
-
-
 class SubCategoryAdmin(admin.ModelAdmin):
-    # inlines = [DetailSubCategoryInline, ]
+    list_display = ('name', 'description')
+
+
+class ProductCategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')
 
 
 admin.site.register(SubCategory, SubCategoryAdmin)
 admin.site.register(DetailSubCategory, DetailSubCategoryAdmin)
+admin.site.register(ProductCategory, ProductCategoryAdmin)
 
 
 #
