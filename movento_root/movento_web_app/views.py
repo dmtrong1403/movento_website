@@ -1,9 +1,11 @@
+from datetime import datetime
+
+from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.shortcuts import render
+
 from .forms import ContactForm
-from django.core.mail import send_mail
 from .models import *
-from datetime import datetime
 
 
 def base_context():
@@ -15,6 +17,29 @@ def base_context():
         "Partners": Partner.objects.all(),
         "ContactForm": ContactForm(),
     }
+
+
+def convert_string(input_string):
+    output_string = str(input_string).lower().strip()
+    for char in output_string:
+        if char in "!@%\^*()+=<>?/,.:;\' \"&#[]~$_":
+            output_string = output_string.replace(char, "-")
+        elif char in "àáạảãâầấậẩẫăằắặẳẵ":
+            output_string = output_string.replace(char, "a")
+        elif char in "èéẹẻẽêềếệểễ":
+            output_string = output_string.replace(char, "e")
+        elif char in "ìíịỉĩ":
+            output_string = output_string.replace(char, "i")
+        elif char in "òóọỏõôồốộổỗơờớợởỡ":
+            output_string = output_string.replace(char, "o")
+        elif char in "ùúụủũưừứựửữ":
+            output_string = output_string.replace(char, "u")
+        elif char in "ỳýỵỷỹ":
+            output_string = output_string.replace(char, "y")
+        elif char in "đ":
+            output_string = output_string.replace(char, "d")
+        output_string = output_string.replace("--", "-")
+    return output_string
 
 
 def index(request):
@@ -117,3 +142,18 @@ def submit_request(request):
     return render(request, 'success.html', {**context, **base_context()})
 
 
+def product_category(request, cate_code):
+    context = {
+        "ProductCategory": ProductCategory.objects.filter(code=cate_code).first(),
+    }
+    return render(request, 'productcategory.html', {**context, **base_context()})
+
+
+def product_detail(request, cate_code, product_code):
+    product_category = ProductCategory.objects.filter(code=cate_code).first()
+    context = {
+        "Product": Product.objects.filter(code=product_code).first(),
+        "RelatedProducts": product_category.product_set.all(),
+        "OutStandingProducts": Product.objects.filter(is_outstanding=True),
+    }
+    return render(request, 'product.html', {**context, **base_context()})
