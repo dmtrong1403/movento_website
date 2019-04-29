@@ -245,6 +245,7 @@ class ProductCategory(models.Model):
     description = models.TextField("Mô tả")
     is_homepage_content = models.BooleanField("Hiển thị ở mục giới thiệu ?", default=True)
     code = models.SlugField(max_length=100, verbose_name="Mã danh mục")
+    tag = models.ManyToManyField(Tag, verbose_name="Tags")
 
     class Meta:
         verbose_name = "Danh mục sản phẩm"
@@ -255,6 +256,28 @@ class ProductCategory(models.Model):
 
     def get_absolute_url(self):
         return reverse("product_category", args=[self.code, ])
+
+
+class ProductAttrs_Color(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Màu sắc", default="")
+
+    class Meta:
+        verbose_name = "Màu sắc sản phẩm"
+        verbose_name_plural = "Màu sắc sản phẩm"
+
+    def __str__(self):
+        return str(self.name)
+
+
+class ProductAttrs_Material(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Vật liệu", default="")
+
+    class Meta:
+        verbose_name = "Chất liệu sản phẩm"
+        verbose_name_plural = "Chất liệu sản phẩm"
+
+    def __str__(self):
+        return str(self.name)
 
 
 class Product(models.Model):
@@ -269,8 +292,8 @@ class Product(models.Model):
     category = models.ForeignKey(ProductCategory, blank=True, null=True, on_delete=models.CASCADE,
                                  verbose_name="Danh mục")
     tag = models.ManyToManyField(Tag, verbose_name="Tags")
-    material = models.CharField(verbose_name="Vật liệu", max_length=100, null=True)
-    color = models.CharField(verbose_name="Màu sắc", max_length=100, null=True)
+    material = models.ForeignKey(ProductAttrs_Material, verbose_name="Vật liệu", null=True, on_delete=models.CASCADE)
+    color = models.ForeignKey(ProductAttrs_Color, verbose_name="Màu sắc", null=True, on_delete=models.CASCADE)
     rating = models.CharField(verbose_name="Đánh giá", choices=RATING, max_length=1, null=True)
     price = models.FloatField(verbose_name="Giá niêm yết", blank=True, null=True)
     discount = models.FloatField(verbose_name="Giảm giá %", blank=True, null=True)
@@ -288,9 +311,7 @@ class Product(models.Model):
         return str(self.name)
 
     def get_absolute_url(self):
-        detail_subcategory = DetailSubCategory.objects.get(pk=self.category.id)
-        subcategory = SubCategory.objects.get(pk=detail_subcategory.parent_cate.id)
-        return reverse("product_detail", args=[subcategory.code, detail_subcategory.code, self.code])
+        return reverse("product_detail", args=[self.category.code, self.code])
 
 
 class ProductImages(models.Model):

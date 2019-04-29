@@ -7,6 +7,14 @@ from .models import *
 # Product models
 #
 
+# class ProductAttrs_ColorAdmin(admin.ModelAdmin):
+#     list_display = ('name',)
+#
+#
+# class ProductAttrs_MaterialAdmin(admin.ModelAdmin):
+#     list_display = ('name',)
+
+
 class ProductImagesInline(admin.TabularInline):
     model = ProductImages
 
@@ -17,6 +25,9 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Product, ProductAdmin)
+admin.site.register(ProductAttrs_Color)
+admin.site.register(ProductAttrs_Material)
+
 
 
 #
@@ -85,7 +96,6 @@ class CustomerCommentAdmin(admin.ModelAdmin):
 
 
 admin.site.register(CustomerComment, CustomerCommentAdmin)
-
 
 #
 # Contact model
