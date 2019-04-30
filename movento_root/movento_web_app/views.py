@@ -11,7 +11,7 @@ from .models import *
 def base_context():
     return {
         "ServiceMenu": SubCategory.objects.filter(cate_type="0"),
-        "ProductMenu": SubCategory.objects.filter(cate_type="1"),
+        "ProductMenu": ProductCategory.objects.all(),
         "CTAContent": Content.objects.filter(page="0", component_type="5").first(),
         "Contact": Contact.objects.all().first(),
         "Partners": Partner.objects.all(),
@@ -143,17 +143,90 @@ def submit_request(request):
 
 
 def product_category(request, cate_code):
+    Product_Category = ProductCategory.objects.filter(code=cate_code).first()
+    Products = Product.objects.filter(category=Product_Category.id).all()
+    paginator = Paginator(Products, 9)
+    page = request.GET.get('page')
+    LastIndex = Products.count() - 1
+    if int(page) >= 2:
+        LastIndex = (Products.count() % 9) - 1
     context = {
-        "ProductCategory": ProductCategory.objects.filter(code=cate_code).first(),
+        "ProductCategory": Product_Category,
+        "Products": paginator.get_page(page),
+        "Tags": Product_Category.tag.all(),
+        "ListCategory": ProductCategory.objects.all(),
+        "LastIndex": LastIndex,
+        "Openrow_Indexes": [i for i in range(0, Products.count() + 1, 3)],
+        "Closerow_Indexes": [i for i in range(2, Products.count() + 1, 3)]
     }
-    return render(request, 'productcategory.html', {**context, **base_context()})
+    # assert False
+    return render(request, 'product_category.html', {**context, **base_context()})
 
 
 def product_detail(request, cate_code, product_code):
     product_category = ProductCategory.objects.filter(code=cate_code).first()
+    prd = Product.objects.filter(code=product_code).first()
     context = {
-        "Product": Product.objects.filter(code=product_code).first(),
+        "ProductCategory": product_category,
+        "Product": prd,
         "RelatedProducts": product_category.product_set.all(),
         "OutStandingProducts": Product.objects.filter(is_outstanding=True),
+        "ListRating": [1, 2, 3, 4, 5],
+        "ProductRating": int(prd.rating),
     }
-    return render(request, 'product.html', {**context, **base_context()})
+    # assert False
+    return render(request, 'product_detail.html', {**context, **base_context()})
+
+
+def search_product(request):
+    context = {
+        "CoverContent": Content.objects.filter(page="0", component_type="0").first(),
+        "ListCategory": ProductCategory.objects.all(),
+        "ResponseMessage": "Không có kết quả tìm kiếm",
+    }
+    if request.GET.get("keyword"):
+        keyword = request.GET.get("keyword")
+        Products = Product.objects.all()
+        MatchedProducts = []
+        for product in Products:
+            if convert_string(product.name) in convert_string(keyword) or convert_string(keyword) in convert_string(
+                    product.name):
+                MatchedProducts.append(product)
+        if len(MatchedProducts) > 0:
+            context.update({
+                "ResponseMessage": "Kêt quả tìm kiếm cho từ khóa: {}".format(keyword),
+                "Products": MatchedProducts,
+                "LastIndex": len(MatchedProducts) - 1,
+                "Openrow_Indexes": [i for i in range(0, len(MatchedProducts) + 1, 3)],
+                "Closerow_Indexes": [i for i in range(2, len(MatchedProducts) + 1, 3)]
+            })
+    # assert False
+    return render(request, 'search_product.html', {**context, **base_context()})
+
+
+def search_product_tagname(request, tagname):
+    context = {
+        "CoverContent": Content.objects.filter(page="0", component_type="0").first(),
+        "ListCategory": ProductCategory.objects.all(),
+        "ResponseMessage": "Không có kết quả tìm kiếm",
+    }
+    Products = Product.objects.all()
+    MatchedProducts = []
+    for product in Products:
+        isMatched = False
+        for tag in product.tag.all():
+            if tag.code == convert_string(tagname):
+                isMatched = True
+        if isMatched:
+            MatchedProducts.append(product)
+    if len(MatchedProducts) > 0:
+        context.update({
+            "ResponseMessage": "Kêt quả tìm kiếm cho liên kết: {}".format(
+                Tag.objects.filter(code=tagname).first().name),
+            "Products": MatchedProducts,
+            "LastIndex": len(MatchedProducts) - 1,
+            "Openrow_Indexes": [i for i in range(0, len(MatchedProducts) + 1, 3)],
+            "Closerow_Indexes": [i for i in range(2, len(MatchedProducts) + 1, 3)]
+        })
+    # assert False
+    return render(request, 'search_product.html', {**context, **base_context()})

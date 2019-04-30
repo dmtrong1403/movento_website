@@ -119,18 +119,7 @@
                     <li class="menu-has-children"><a href="#service">Sản phẩm</a>
                         <ul>
                             {% for menu in ProductMenu %}
-                                {% if menu.detailsubcategory_set.count > 1 %}
-                                    <li class="menu-has-children">
-                                        <a href="{% url 'product_subcategory' menu.code %}">{{ menu.name }}</a>
-                                        <ul>
-                                            {% for submenu in menu.detailsubcategory_set.all %}
-                                                <li><a href="{% url 'product_detailsubcategory' menu.code submenu.code %}">{{ submenu.name }}</a></li>
-                                            {% endfor %}
-                                        </ul>
-                                    </li>
-                                {% else %}
-                                    <li><a href="{% url 'product_subcategory' menu.code %}">{{ menu.name }}</a></li>
-                                {% endif %}
+                            <li><a href="{% url 'product_category' menu.code %}">{{ menu.name }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
