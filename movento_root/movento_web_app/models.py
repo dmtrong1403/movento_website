@@ -123,8 +123,8 @@ class ContentImages(models.Model):
 #
 
 class Tag(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Tên tag")
-    path = models.CharField(max_length=100, verbose_name="Đường dẫn")
+    name = models.CharField(max_length=100, verbose_name="Tên tag", default="")
+    code = models.SlugField(max_length=100, verbose_name="Mã tag", default="")
 
     class Meta:
         verbose_name = "Tag"
@@ -242,6 +242,8 @@ class Contact(models.Model):
 
 class ProductCategory(models.Model):
     name = models.CharField(max_length=100, verbose_name="Tên danh mục")
+    image = models.ImageField(upload_to='product_category_images', verbose_name="Ảnh đại diện", default="")
+    image_alt = models.CharField(max_length=100, verbose_name="Mô tả ảnh", default="")
     description = models.TextField("Mô tả")
     is_homepage_content = models.BooleanField("Hiển thị ở mục giới thiệu ?", default=True)
     code = models.SlugField(max_length=100, verbose_name="Mã danh mục")
@@ -298,6 +300,7 @@ class Product(models.Model):
     price = models.FloatField(verbose_name="Giá niêm yết", blank=True, null=True)
     discount = models.FloatField(verbose_name="Giảm giá %", blank=True, null=True)
     actual_price = models.FloatField(verbose_name="Giá cuối")
+    warranty = models.IntegerField(verbose_name="Bảo hành", blank=True, null=True)
     code = models.SlugField(max_length=100, verbose_name="Mã sản phẩm")
     description = models.TextField(blank=True, null=True, verbose_name="Mô tả ngắn")
     main_content = FroalaField(default="Mô tả chi tiết")
@@ -315,10 +318,13 @@ class Product(models.Model):
 
 
 class ProductImages(models.Model):
-    image = models.ImageField(upload_to='product_detail_images', verbose_name="Hình ảnh")
+    preview = models.ImageField(upload_to='product_detail_images', verbose_name="Ảnh đại diện", default="")
+    thumbnail = models.ImageField(upload_to='product_detail_images', verbose_name="Ảnh nhỏ", default="")
+    original = models.ImageField(upload_to='product_detail_images', verbose_name="Ảnh chi tiết (phân giải lớn)",
+                                 default="")
     image_alt = models.CharField(max_length=100, verbose_name="Mô tả ảnh", default="")
-    post = models.ForeignKey(Product, blank=True, null=True, on_delete=models.CASCADE,
-                             verbose_name="Sản phẩm")
+    product = models.ForeignKey(Product, blank=True, null=True, on_delete=models.CASCADE,
+                                verbose_name="Sản phẩm")
 
     class Meta:
         verbose_name = "Hình ảnh sản phẩm"
