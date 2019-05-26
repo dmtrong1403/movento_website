@@ -143,21 +143,21 @@ def submit_request(request):
 
 
 def product_category(request, cate_code):
-    Product_Category = ProductCategory.objects.filter(code=cate_code).first()
-    Products = Product.objects.filter(category=Product_Category.id).all()
-    paginator = Paginator(Products, 9)
+    product_category = ProductCategory.objects.filter(code=cate_code).first()
+    products = Product.objects.filter(category=product_category.id).all()
+    paginator = Paginator(products, 9)
     page = request.GET.get('page')
-    LastIndex = Products.count() - 1
+    last_index = products.count() - 1
     if page and int(page) >= 2:
-        LastIndex = (Products.count() % 9) - 1
+        last_index = (products.count() % 9) - 1
     context = {
-        "ProductCategory": Product_Category,
+        "ProductCategory": product_category,
         "Products": paginator.get_page(page),
-        "Tags": Product_Category.tag.all(),
+        "Tags": product_category.tag.all(),
         "ListCategory": ProductCategory.objects.all(),
-        "LastIndex": LastIndex,
-        "Openrow_Indexes": [i for i in range(0, Products.count() + 1, 3)],
-        "Closerow_Indexes": [i for i in range(2, Products.count() + 1, 3)]
+        "LastIndex": last_index,
+        "Openrow_Indexes": [i for i in range(0, products.count() + 1, 3)],
+        "Closerow_Indexes": [i for i in range(2, products.count() + 1, 3)]
     }
     # assert False
     return render(request, 'product_category.html', {**context, **base_context()})

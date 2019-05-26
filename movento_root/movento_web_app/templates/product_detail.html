@@ -31,8 +31,7 @@
                 </h1>
                 <p class="text-white link-nav"><a href="{% url 'home' %}">Trang chủ </a> <span
                         class="lnr lnr-arrow-right"></span> <a href="{% url 'product_category' ProductCategory.code %}">
-                    {{ ProductCategory.name }}</a> <span class="lnr lnr-arrow-right"></span> <a href=""> {{ Product.name
-                    }}</a></p>
+                    {{ ProductCategory.name }}</a> <span class="lnr lnr-arrow-right"></span> <a href=""> {{ Product.name }}</a></p>
             </div>
         </div>
     </div>
@@ -94,8 +93,7 @@
                         <li>: <span class="currency-default">{{ Product.discount }}</span></li>
                         {% if Product.discount > 0 %}
                         <li>: <strike><strong class="currency-default">{{ Product.price }}</strong></strike><br/><font
-                                style="color:red;font-weight:500;" class="currency-default">{{ Product.actual_price
-                            }}</font></li>
+                                style="color:red;font-weight:500;" class="currency-default">{{ Product.actual_price }}</font></li>
                         {% else %}
                         <li>: <strong class="currency-default">{{ Product.actual_price }}</strong></li>
                         {% endif %}

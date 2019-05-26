@@ -63,13 +63,10 @@
                                 </div>
                                 <p class="pt-2 text-center">{{ product.name }}<br/>
                                     {% if product.discount > 0 %}
-                                    Giá niêm yết: <strike><font style="font-weight:500;" class="currency-default">{{
-                                        product.price }}</font></strike></br>
-                                    Khuyến mại: <font style="color:red;font-weight:500;" class="currency-default">{{
-                                        product.actual_price }}</font>
+                                    Giá niêm yết: <strike><font style="font-weight:500;" class="currency-default">{{ product.price }}</font></strike></br>
+                                    Khuyến mại: <font style="color:red;font-weight:500;" class="currency-default">{{ product.actual_price }}</font>
                                     {% else %}
-                                    Giá niêm yết: <font style="font-weight:500;" class="currency-default">{{
-                                        product.actual_price }}</font>
+                                    Giá niêm yết: <font style="font-weight:500;" class="currency-default">{{ product.actual_price }}</font>
                                     {% endif %}
                                 </p>
                             </div>

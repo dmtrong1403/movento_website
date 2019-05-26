@@ -29,7 +29,6 @@ admin.site.register(ProductAttrs_Color)
 admin.site.register(ProductAttrs_Material)
 
 
-
 #
 # Post models
 #
@@ -114,3 +113,19 @@ admin.site.register(Tag)
 #
 
 admin.site.register(Partner)
+
+
+#
+# Order models
+#
+
+class OrderLineInline(admin.TabularInline):
+    model = OrderLine
+
+
+class OrderAdmin(admin.ModelAdmin):
+    inlines = [OrderLineInline, ]
+    list_display = ('tag', 'customer_name', 'status', 'created_date')
+
+
+admin.site.register(Order, OrderAdmin)

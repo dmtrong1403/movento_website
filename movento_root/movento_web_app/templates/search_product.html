@@ -179,13 +179,16 @@ Tìm kiếm sản phẩm
                 }
             }
         };
-        if(getUrlParameter("keyword") != "")
+
+        <!--Search by keyword-->
+        if(getUrlParameter("keyword").length > 0)
         {
             $(".pagination").find("a").each(function(){
                 var attr_href = $(this).attr("href");
                 $(this).attr("href", "/tim-kiem-san-pham?"+window.location.search.substring(1).split("&")[0]+attr_href.replace("?", "&"));
             });
         }
+
     });
 
 

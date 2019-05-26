@@ -332,3 +332,46 @@ class ProductImages(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+#
+# Order models
+#
+
+class Order(models.Model):
+    OPTIONS = (
+        ('1', 'Nháp'),
+        ('2', 'Đã xác nhận'),
+        ('3', 'Hoàn thành'),
+    )
+    tag = models.CharField(verbose_name="Tag", default="", max_length=100)
+    customer_name = models.CharField(verbose_name="Tên khách hàng", max_length=100, null=False)
+    customer_phone = models.CharField(verbose_name="Số điện thoại", max_length=11, null=False)
+    customer_mail = models.CharField(verbose_name="Email", max_length=100, default="")
+    created_date = models.DateField(verbose_name="Ngày tạo", null=False, auto_now_add=True)
+    order_value = models.FloatField(verbose_name="Giá trị đơn hàng", null=False)
+    order_desc = models.TextField(verbose_name="Ghi chú", default="Ghi chú thanh toán, tiến độ...")
+    status = models.CharField(verbose_name="Trạng thái", choices=OPTIONS, null=False, max_length=1)
+
+    class Meta:
+        verbose_name = "Quản lý đơn hàng"
+        verbose_name_plural = "Quản lý đơn hàng"
+
+    def __str__(self):
+        return str(self.id)
+
+
+class OrderLine(models.Model):
+    order = models.ForeignKey(Order, verbose_name="Đơn hàng", null=False, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, verbose_name="Sản phẩm", null=False, on_delete=models.CASCADE)
+    unit_price = models.FloatField(verbose_name="Giá đơn vị", null=False)
+    product_quantity = models.FloatField(verbose_name="Số lượng", null=False)
+    product_uom = models.CharField(verbose_name="Đơn vị", null=False, max_length=20)
+    total_price = models.FloatField(verbose_name="Thành giá", null=False)
+
+    class Meta:
+        verbose_name = "Chi tiết đơn hàng"
+        verbose_name_plural = "Chi tiết đơn hàng"
+
+    def __str__(self):
+        return str(self.id)
