@@ -83,9 +83,9 @@ Tìm kiếm sản phẩm
 
                     <nav class="blog-pagination justify-content-center d-flex">
                         <ul class="pagination">
-                            {% if DetailPosts.has_previous %}
+                            {% if Products.has_previous %}
                             <li class="page-item">
-                                <a href="?page={{ DetailPosts.previous_page_number }}" class="page-link"
+                                <a href="?page={{ Products.previous_page_number }}" class="page-link"
                                    aria-label="Previous">
                                         <span aria-hidden="true">
                                             <span class="lnr lnr-chevron-left"></span>
@@ -93,16 +93,16 @@ Tìm kiếm sản phẩm
                                 </a>
                             </li>
                             {% endif %}
-                            {% for i in DetailPosts.paginator.page_range %}
-                            {% if DetailPosts.number == i %}
+                            {% for i in Products.paginator.page_range %}
+                            {% if Products.number == i %}
                             <li class="page-item active"><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
                             {% else %}
                             <li class="page-item"><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
                             {% endif %}
                             {% endfor %}
-                            {% if DetailPosts.has_next %}
+                            {% if Products.has_next %}
                             <li class="page-item">
-                                <a href="?page={{ DetailPosts.next_page_number }}" class="page-link" aria-label="Next">
+                                <a href="?page={{ Products.next_page_number }}" class="page-link" aria-label="Next">
                                     <span aria-hidden="true">
                                         <span class="lnr lnr-chevron-right"></span>
                                     </span>
@@ -121,93 +121,6 @@ Tìm kiếm sản phẩm
                                 <button type="submit"><i class="fa fa-search"></i></button>
                             </form>
                         </div>
-                        <!--<div class="single-sidebar-widget popular-post-widget" id="accordion_04">-->
-                        <!--<h4 id="headingFour" class="popular-title heading" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">Khoảng giá <i class="fa fa-angle-up"></i></h4>-->
-                        <!--<div id="collapseFour" class="collapse show pt-4" aria-labelledby="headingFour" data-parent="#accordion_04">-->
-                        <!--<div class="form-check">-->
-                        <!--<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>-->
-                        <!--<label class="form-check-label" for="exampleRadios1">-->
-                        <!--Dưới 5.000.000 VNĐ-->
-                        <!--</label>-->
-                        <!--</div>-->
-                        <!--<div class="form-check">-->
-                        <!--<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">-->
-                        <!--<label class="form-check-label" for="exampleRadios2">-->
-                        <!--5.000.000 VNĐ - 15.000.000 VNĐ-->
-                        <!--</label>-->
-                        <!--</div>-->
-                        <!--<div class="form-check">-->
-                        <!--<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">-->
-                        <!--<label class="form-check-label" for="exampleRadios2">-->
-                        <!--15.000.000 VNĐ - 25.000.000 VNĐ-->
-                        <!--</label>-->
-                        <!--</div>-->
-                        <!--<div class="form-check">-->
-                        <!--<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">-->
-                        <!--<label class="form-check-label" for="exampleRadios2">-->
-                        <!--Trên 25.000.000 VNĐ-->
-                        <!--</label>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="single-sidebar-widget popular-post-widget" id="accordion_01">-->
-                        <!--<h4 id="headingOne" class="popular-title heading" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Chất liệu <i class="fa fa-angle-up"></i></h4>-->
-                        <!--<div id="collapseOne" class="collapse show pt-2" aria-labelledby="headingOne" data-parent="#accordion_01">-->
-                        <!--<div class="form-check form-check-inline col-md-5">-->
-                        <!--<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">-->
-                        <!--<label class="form-check-label" for="inlineCheckbox1">Gỗ MDF</label>-->
-                        <!--</div>-->
-                        <!--<div class="form-check form-check-inline col-md-5">-->
-                        <!--<input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">-->
-                        <!--<label class="form-check-label" for="inlineCheckbox2">Gỗ keo</label>-->
-                        <!--</div>-->
-                        <!--<div class="form-check form-check-inline col-md-5">-->
-                        <!--<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">-->
-                        <!--<label class="form-check-label" for="inlineCheckbox1">Gỗ MDF</label>-->
-                        <!--</div>-->
-                        <!--<div class="form-check form-check-inline col-md-5">-->
-                        <!--<input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">-->
-                        <!--<label class="form-check-label" for="inlineCheckbox2">Gỗ keo</label>-->
-                        <!--</div>-->
-                        <!--<div class="form-check form-check-inline col-md-5">-->
-                        <!--<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">-->
-                        <!--<label class="form-check-label" for="inlineCheckbox1">Gỗ MDF</label>-->
-                        <!--</div>-->
-                        <!--<div class="form-check form-check-inline col-md-5">-->
-                        <!--<input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">-->
-                        <!--<label class="form-check-label" for="inlineCheckbox2">Gỗ keo</label>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="single-sidebar-widget popular-post-widget" id="accordion_03">-->
-                        <!--<h4 id="headingThree" class="popular-title heading" data-toggle="collapse" data-target="#collapseTree" aria-expanded="true" aria-controls="collapseTree">Màu sắc <i class="fa fa-angle-up"></i></h4>-->
-                        <!--<div id="collapseTree" class="collapse show pt-2" aria-labelledby="headingThree" data-parent="#accordion_03">-->
-                        <!--<div class="form-check form-check-inline col-md-5">-->
-                        <!--<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">-->
-                        <!--<label class="form-check-label" for="inlineCheckbox1">Gỗ MDF</label>-->
-                        <!--</div>-->
-                        <!--<div class="form-check form-check-inline col-md-5">-->
-                        <!--<input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">-->
-                        <!--<label class="form-check-label" for="inlineCheckbox2">Gỗ keo</label>-->
-                        <!--</div>-->
-                        <!--<div class="form-check form-check-inline col-md-5">-->
-                        <!--<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">-->
-                        <!--<label class="form-check-label" for="inlineCheckbox1">Gỗ MDF</label>-->
-                        <!--</div>-->
-                        <!--<div class="form-check form-check-inline col-md-5">-->
-                        <!--<input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">-->
-                        <!--<label class="form-check-label" for="inlineCheckbox2">Gỗ keo</label>-->
-                        <!--</div>-->
-                        <!--<div class="form-check form-check-inline col-md-5">-->
-                        <!--<input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">-->
-                        <!--<label class="form-check-label" for="inlineCheckbox1">Gỗ MDF</label>-->
-                        <!--</div>-->
-                        <!--<div class="form-check form-check-inline col-md-5">-->
-                        <!--<input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">-->
-                        <!--<label class="form-check-label" for="inlineCheckbox2">Gỗ keo</label>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--</div>-->
                         <div class="single-sidebar-widget post-category-widget" id="accordion_02">
                             <h4 id="headingTwo" class="category-title heading" data-toggle="collapse"
                                 data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">Danh mục <i
@@ -252,6 +165,27 @@ Tìm kiếm sản phẩm
                 $(this).find("i").removeClass("fa-angle-down").addClass("fa-angle-up");
             }
         });
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+        };
+        if(getUrlParameter("keyword") != "")
+        {
+            $(".pagination").find("a").each(function(){
+                var attr_href = $(this).attr("href");
+                $(this).attr("href", "/tim-kiem-san-pham?"+window.location.search.substring(1).split("&")[0]+attr_href.replace("?", "&"));
+            });
+        }
     });
 
 

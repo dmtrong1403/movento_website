@@ -148,7 +148,7 @@ def product_category(request, cate_code):
     paginator = Paginator(Products, 9)
     page = request.GET.get('page')
     LastIndex = Products.count() - 1
-    if int(page) >= 2:
+    if page and int(page) >= 2:
         LastIndex = (Products.count() % 9) - 1
     context = {
         "ProductCategory": Product_Category,
@@ -186,20 +186,20 @@ def search_product(request):
     }
     if request.GET.get("keyword"):
         keyword = request.GET.get("keyword")
-        Products = Product.objects.all()
-        MatchedProducts = []
-        for product in Products:
-            if convert_string(product.name) in convert_string(keyword) or convert_string(keyword) in convert_string(
-                    product.name):
-                MatchedProducts.append(product)
-        if len(MatchedProducts) > 0:
-            context.update({
-                "ResponseMessage": "Kêt quả tìm kiếm cho từ khóa: {}".format(keyword),
-                "Products": MatchedProducts,
-                "LastIndex": len(MatchedProducts) - 1,
-                "Openrow_Indexes": [i for i in range(0, len(MatchedProducts) + 1, 3)],
-                "Closerow_Indexes": [i for i in range(2, len(MatchedProducts) + 1, 3)]
-            })
+        Products = Product.objects.filter(name__icontains=keyword).all()
+    paginator = Paginator(Products, 9)
+    page = request.GET.get('page')
+    LastIndex = len(Products) - 1
+    if page and int(page) >= 2:
+        LastIndex = (Products.count() % 9) - 1
+    if len(Products) > 0:
+        context.update({
+            "ResponseMessage": "Kêt quả tìm kiếm cho từ khóa: {}".format(keyword),
+            "Products": paginator.get_page(page),
+            "LastIndex": LastIndex,
+            "Openrow_Indexes": [i for i in range(0, len(Products) + 1, 3)],
+            "Closerow_Indexes": [i for i in range(2, len(Products) + 1, 3)]
+        })
     # assert False
     return render(request, 'search_product.html', {**context, **base_context()})
 
@@ -210,23 +210,20 @@ def search_product_tagname(request, tagname):
         "ListCategory": ProductCategory.objects.all(),
         "ResponseMessage": "Không có kết quả tìm kiếm",
     }
-    Products = Product.objects.all()
-    MatchedProducts = []
-    for product in Products:
-        isMatched = False
-        for tag in product.tag.all():
-            if tag.code == convert_string(tagname):
-                isMatched = True
-        if isMatched:
-            MatchedProducts.append(product)
-    if len(MatchedProducts) > 0:
+    Input_Tag = Tag.objects.filter(code=tagname).first()
+    Products = Product.objects.filter(tag__in=[Input_Tag.id]).all()
+    paginator = Paginator(Products, 9)
+    page = request.GET.get('page')
+    LastIndex = len(Products) - 1
+    if page and int(page) >= 2:
+        LastIndex = (Products.count() % 9) - 1
+    if len(Products) > 0:
         context.update({
-            "ResponseMessage": "Kêt quả tìm kiếm cho liên kết: {}".format(
-                Tag.objects.filter(code=tagname).first().name),
-            "Products": MatchedProducts,
-            "LastIndex": len(MatchedProducts) - 1,
-            "Openrow_Indexes": [i for i in range(0, len(MatchedProducts) + 1, 3)],
-            "Closerow_Indexes": [i for i in range(2, len(MatchedProducts) + 1, 3)]
+            "ResponseMessage": "Kêt quả tìm kiếm cho liên kết: {}".format(Input_Tag.name),
+            "Products": paginator.get_page(page),
+            "LastIndex": LastIndex,
+            "Openrow_Indexes": [i for i in range(0, len(Products) + 1, 3)],
+            "Closerow_Indexes": [i for i in range(2, len(Products) + 1, 3)]
         })
     # assert False
     return render(request, 'search_product.html', {**context, **base_context()})
